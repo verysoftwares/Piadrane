@@ -52,8 +52,8 @@ newtiles={{16*8,16*4,1},{16*7,16*4,1},{16*6,16*4,1},{16*5,16*4,1},{16*7,16*5,1},
 
 water_tiles={{16*8,16*5},{16*8,16*1},{16*13,16*1},{16*12,16*4},{16*9,16*3}}
 
-jetpack=true
+--jetpack=true
 fuel=1
 fuel_consume=0.00125
-drill=true
+--drill=true
 drill_spd=0.04
