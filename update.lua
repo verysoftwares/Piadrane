@@ -144,7 +144,7 @@ function fly(plr)
 end
 
 function use_drill(plr)
-    if press('lctrl') or press('rctrl') then
+    if (press('lctrl') or press('rctrl')) and fuel>0 then
         --plr.dy=plr.dy*0.4
         if not drill_hold then drill_hold={(plr.x+6)-(plr.x+6)%16+2,(plr.y+6)-(plr.y+6)%16+4} end
         plr.y=plr.y+((drill_hold[2])-plr.y)*0.4
@@ -156,6 +156,7 @@ function use_drill(plr)
         if not drill_tile then 
             if plr.dx<0 then drill_tile={drill_hold[1]-drill_hold[1]%16-16,drill_hold[2]-drill_hold[2]%16} end
             if plr.dx>=0 then drill_tile={drill_hold[1]-drill_hold[1]%16+16,drill_hold[2]-drill_hold[2]%16} end
+            if jetpack and (press('lalt') or press('ralt')) then drill_tile={drill_hold[1]-drill_hold[1]%16,drill_hold[2]-drill_hold[2]%16-16} end
         end
         if drill_tile then
         if not tgt_tile or not (tgt_tile.x==drill_tile[1] and tgt_tile.y==drill_tile[2]) then tgt_tile=tiles[posstr(drill_tile[1]/16,drill_tile[2]/16)] end

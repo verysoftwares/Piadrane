@@ -175,7 +175,7 @@ function draw_sprites()
                     if math.abs(s.dx)>0.08 then s_quad=_G['dn_quad'..tostring(math.floor(t*0.2%4+1))] end
                     lg.draw(dinosheet,s_quad,s.x-2,s.y-4,flip) 
                     
-                    if (drill and drill_tile and (press('lctrl') or press('rctrl')) and t%32<16) then
+                    if (drill and drill_tile and (press('lctrl') or press('rctrl')) and t%24<12) then
                     if tgt_tile and tgt_tile.id>=1 and tgt_tile.id<=12 and (tgt_tile.id-1)%3==1 then
                     lg.draw(sprsheet,dr_quad,drill_tile[1],drill_tile[2])
                     else
