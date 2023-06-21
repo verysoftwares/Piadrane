@@ -50,7 +50,7 @@ function mainupdate()
         edit()
         clear_objs()
     end
-    
+
     tile_refresh()
     water_refresh()
 
@@ -128,15 +128,16 @@ end
 
 function fly(plr)
     if press('lalt') or press('ralt') then
-        if press('down') then plr.dy=plr.dy*0.4 
-        else
-            if fuel>0 then
+        if fuel>0 then
+            if press('down') then 
+                plr.dy=plr.dy*0.4 
+            else
                 plr.dy=plr.dy-0.6
                 plr.dy=plr.dy*0.89
-                fuel=fuel-0.01
-            else
-                jump(plr)
             end
+            fuel=fuel-fuel_consume
+        else
+            jump(plr)
         end
     end
 end
@@ -189,6 +190,19 @@ function sprite_coll(plr)
         if s.id==20 then
             if AABB(plr.x,plr.y,plr.w,plr.h,s.x,s.y+10,16,6) then
                 die(plr)
+            end
+        end
+        if s.id==15 then
+            if AABB(s.x,s.y,16,16,plr.x,plr.y,plr.w,plr.h) then
+                table.remove(sprites,i)
+                jetpack=true
+                fuel=fuel+0.5
+            end
+        end
+        if s.id==19 then
+            if AABB(s.x,s.y,16,16,plr.x,plr.y,plr.w,plr.h) then
+                table.remove(sprites,i)
+                fuel=fuel+0.5
             end
         end
     end

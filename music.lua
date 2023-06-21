@@ -14,7 +14,7 @@ function playmusic(filename,ingame)
         vgm('credits')
         play_len=4.28
     end
-    if filename=='LEVEL0.LVL' or (playing~='lvlearly.vgm' and string.sub(filename,1,5)=='LEVEL' and string.sub(filename,6,6)~='4') then
+    if playing~='lvlearly.vgm' and string.sub(filename,1,5)=='LEVEL' and string.sub(filename,6,6)~='4' then
         vgm('lvlearly')
         play_len=4.28*4
     end
