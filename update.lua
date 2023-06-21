@@ -27,6 +27,7 @@ function mainupdate()
                 if drill then use_drill(plr) end
                 if jetpack_consume then fuel=fuel-fuel_consume end
                 if drill_consume then fuel=fuel-fuel_consume end
+                if fuel<0 then fuel=0 end
             else
                 move_x(plr)
                 swim_y(plr)
@@ -238,6 +239,7 @@ function sprite_coll(plr)
                 table.remove(sprites,i)
                 jetpack=true
                 fuel=fuel+0.5
+                if fuel>1 then fuel=1 end
             end
         end
         if s.id==16 then
@@ -245,12 +247,14 @@ function sprite_coll(plr)
                 table.remove(sprites,i)
                 drill=true
                 fuel=fuel+0.5
+                if fuel>1 then fuel=1 end
             end
         end
         if s.id==19 then
             if AABB(s.x,s.y,16,16,plr.x,plr.y,plr.w,plr.h) then
                 table.remove(sprites,i)
                 fuel=fuel+0.5
+                if fuel>1 then fuel=1 end
             end
         end
     end
