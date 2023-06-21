@@ -25,6 +25,8 @@ function mainupdate()
                 if not jetpack then jump(plr)
                 else fly(plr) end
                 if drill then use_drill(plr) end
+                if jetpack_consume then fuel=fuel-fuel_consume end
+                if drill_consume then fuel=fuel-fuel_consume end
             else
                 move_x(plr)
                 swim_y(plr)
@@ -128,6 +130,7 @@ function swim_y(plr)
 end
 
 function fly(plr)
+    jetpack_consume=false
     if press('lalt') or press('ralt') then
         if fuel>0 then
             if press('down') then 
@@ -136,7 +139,7 @@ function fly(plr)
                 plr.dy=plr.dy-0.6
                 plr.dy=plr.dy*0.89
             end
-            fuel=fuel-fuel_consume
+            jetpack_consume=true
         else
             jump(plr)
         end
@@ -144,38 +147,39 @@ function fly(plr)
 end
 
 function use_drill(plr)
+    drill_consume=false
     if (press('lctrl') or press('rctrl')) and fuel>0 then
         --plr.dy=plr.dy*0.4
-        if not drill_hold then drill_hold={(plr.x+6)-(plr.x+6)%16+2,(plr.y+6)-(plr.y+6)%16+4} end
-        plr.y=plr.y+((drill_hold[2])-plr.y)*0.4
-        plr.x=plr.x+((drill_hold[1])-plr.x)*0.4
-        if press('left') and (not drill_tile or not (drill_tile[1]==drill_hold[1]-16 and drill_tile[2]==drill_hold[2])) then plr.dx=-0.00001; drill_tile={drill_hold[1]-drill_hold[1]%16-16,drill_hold[2]-drill_hold[2]%16} end
-        if press('right') and (not drill_tile or not (drill_tile[1]==drill_hold[1]+16 and drill_tile[2]==drill_hold[2]))then plr.dx=0.00001; drill_tile={drill_hold[1]-drill_hold[1]%16+16,drill_hold[2]-drill_hold[2]%16} end
-        if press('up') and (not drill_tile or not (drill_tile[1]==drill_hold[1] and drill_tile[2]==drill_hold[2]-16)) then drill_tile={drill_hold[1]-drill_hold[1]%16,drill_hold[2]-drill_hold[2]%16-16} end
-        if press('down') and (not drill_tile or not (drill_tile[1]==drill_hold[1] and drill_tile[2]==drill_hold[2]+16)) then drill_tile={drill_hold[1]-drill_hold[1]%16,drill_hold[2]-drill_hold[2]%16+16} end
-        if not drill_tile then 
-            if plr.dx<0 then drill_tile={drill_hold[1]-drill_hold[1]%16-16,drill_hold[2]-drill_hold[2]%16} end
-            if plr.dx>=0 then drill_tile={drill_hold[1]-drill_hold[1]%16+16,drill_hold[2]-drill_hold[2]%16} end
-            if jetpack and (press('lalt') or press('ralt')) then drill_tile={drill_hold[1]-drill_hold[1]%16,drill_hold[2]-drill_hold[2]%16-16} end
+        if not plr.drill_hold then plr.drill_hold={(plr.x+6)-(plr.x+6)%16+2,(plr.y+6)-(plr.y+6)%16+4} end
+        plr.y=plr.y+((plr.drill_hold[2])-plr.y)*0.4
+        plr.x=plr.x+((plr.drill_hold[1])-plr.x)*0.4
+        if press('left') and (not plr.drill_tile or not (plr.drill_tile[1]==plr.drill_hold[1]-16 and plr.drill_tile[2]==plr.drill_hold[2])) then plr.dx=-0.00001; plr.drill_tile={plr.drill_hold[1]-plr.drill_hold[1]%16-16,plr.drill_hold[2]-plr.drill_hold[2]%16} end
+        if press('right') and (not plr.drill_tile or not (plr.drill_tile[1]==plr.drill_hold[1]+16 and plr.drill_tile[2]==plr.drill_hold[2]))then plr.dx=0.00001; plr.drill_tile={plr.drill_hold[1]-plr.drill_hold[1]%16+16,plr.drill_hold[2]-plr.drill_hold[2]%16} end
+        if press('up') and (not plr.drill_tile or not (plr.drill_tile[1]==plr.drill_hold[1] and plr.drill_tile[2]==plr.drill_hold[2]-16)) then plr.drill_tile={plr.drill_hold[1]-plr.drill_hold[1]%16,plr.drill_hold[2]-plr.drill_hold[2]%16-16} end
+        if press('down') and (not plr.drill_tile or not (plr.drill_tile[1]==plr.drill_hold[1] and plr.drill_tile[2]==plr.drill_hold[2]+16)) then plr.drill_tile={plr.drill_hold[1]-plr.drill_hold[1]%16,plr.drill_hold[2]-plr.drill_hold[2]%16+16} end
+        if not plr.drill_tile then 
+            if plr.dx<0 then plr.drill_tile={plr.drill_hold[1]-plr.drill_hold[1]%16-16,plr.drill_hold[2]-plr.drill_hold[2]%16} end
+            if plr.dx>=0 then plr.drill_tile={plr.drill_hold[1]-plr.drill_hold[1]%16+16,plr.drill_hold[2]-plr.drill_hold[2]%16} end
+            if jetpack and (press('lalt') or press('ralt')) then plr.drill_tile={plr.drill_hold[1]-plr.drill_hold[1]%16,plr.drill_hold[2]-plr.drill_hold[2]%16-16} end
         end
-        if drill_tile then
-        if not tgt_tile or not (tgt_tile.x==drill_tile[1] and tgt_tile.y==drill_tile[2]) then tgt_tile=tiles[posstr(drill_tile[1]/16,drill_tile[2]/16)] end
-        if tgt_tile and tgt_tile.id>=1 and tgt_tile.id<=12 and (tgt_tile.id-1)%3==1 then
-            if not tgt_weaken then
-                tgt_weaken=1
+        if plr.drill_tile then
+        if not plr.tgt_tile or not (plr.tgt_tile.x==plr.drill_tile[1] and plr.tgt_tile.y==plr.drill_tile[2]) then plr.tgt_tile=tiles[posstr(plr.drill_tile[1]/16,plr.drill_tile[2]/16)] end
+        if plr.tgt_tile and plr.tgt_tile.id>=1 and plr.tgt_tile.id<=12 and (plr.tgt_tile.id-1)%3==1 then
+            if not plr.tgt_weaken then
+                plr.tgt_weaken=1
             end
-            tgt_weaken=tgt_weaken-drill_spd
-            if tgt_weaken<=0 then
-                tiles[posstr(drill_tile[1]/16,drill_tile[2]/16)]=nil
+            plr.tgt_weaken=plr.tgt_weaken-drill_spd
+            if plr.tgt_weaken<=0 then
+                tiles[posstr(plr.drill_tile[1]/16,plr.drill_tile[2]/16)]=nil
             end
         end
         end
-        fuel=fuel-fuel_consume
+        drill_consume=true
     else
-        drill_hold=nil
-        drill_tile=nil
-        tgt_tile=nil
-        tgt_weaken=nil
+        plr.drill_hold=nil
+        plr.drill_tile=nil
+        plr.tgt_tile=nil
+        plr.tgt_weaken=nil
     end
 end
 
