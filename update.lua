@@ -16,14 +16,15 @@ function mainupdate()
     if spriteloaded and not editmode then
         for i,sp in ipairs(sprites) do if sp.id==17 and not sp.dead then
             local plr=sp
-            if press('left') then if plr.dx>0 then plr.dx=0 end; plr.dx=plr.dx-0.3 end
-            if press('right') then if plr.dx<0 then plr.dx=0 end; plr.dx=plr.dx+0.3 end
+            if press('left') and not (drill and (press('lctrl') or press('rctrl'))) then if plr.dx>0 then plr.dx=0 end; plr.dx=plr.dx-0.3 end
+            if press('right') and not (drill and (press('lctrl') or press('rctrl'))) then if plr.dx<0 then plr.dx=0 end; plr.dx=plr.dx+0.3 end
 
             if not water_coll(plr) then
                 move_x(plr)
                 move_y(plr)
                 if not jetpack then jump(plr)
                 else fly(plr) end
+                if drill then use_drill(plr) end
             else
                 move_x(plr)
                 swim_y(plr)
@@ -84,7 +85,7 @@ end
 
 function move_y(plr)
     plr.y=plr.y+plr.dy
-    if not (jetpack and ((press('lalt') or press('ralt')) and press('down'))) then
+    if not (jetpack and ((press('lalt') or press('ralt')) and press('down'))) and not (drill and (press('lctrl') or press('rctrl'))) then
     plr.dy=plr.dy+0.2
     end
     plr.onground=false
@@ -142,6 +143,41 @@ function fly(plr)
     end
 end
 
+function use_drill(plr)
+    if press('lctrl') or press('rctrl') then
+        --plr.dy=plr.dy*0.4
+        if not drill_hold then drill_hold={(plr.x+6)-(plr.x+6)%16+2,(plr.y+6)-(plr.y+6)%16+4} end
+        plr.y=plr.y+((drill_hold[2])-plr.y)*0.4
+        plr.x=plr.x+((drill_hold[1])-plr.x)*0.4
+        if press('left') and (not drill_tile or not (drill_tile[1]==drill_hold[1]-16 and drill_tile[2]==drill_hold[2])) then plr.dx=-0.00001; drill_tile={drill_hold[1]-drill_hold[1]%16-16,drill_hold[2]-drill_hold[2]%16} end
+        if press('right') and (not drill_tile or not (drill_tile[1]==drill_hold[1]+16 and drill_tile[2]==drill_hold[2]))then plr.dx=0.00001; drill_tile={drill_hold[1]-drill_hold[1]%16+16,drill_hold[2]-drill_hold[2]%16} end
+        if press('up') and (not drill_tile or not (drill_tile[1]==drill_hold[1] and drill_tile[2]==drill_hold[2]-16)) then drill_tile={drill_hold[1]-drill_hold[1]%16,drill_hold[2]-drill_hold[2]%16-16} end
+        if press('down') and (not drill_tile or not (drill_tile[1]==drill_hold[1] and drill_tile[2]==drill_hold[2]+16)) then drill_tile={drill_hold[1]-drill_hold[1]%16,drill_hold[2]-drill_hold[2]%16+16} end
+        if not drill_tile then 
+            if plr.dx<0 then drill_tile={drill_hold[1]-drill_hold[1]%16-16,drill_hold[2]-drill_hold[2]%16} end
+            if plr.dx>=0 then drill_tile={drill_hold[1]-drill_hold[1]%16+16,drill_hold[2]-drill_hold[2]%16} end
+        end
+        if drill_tile then
+        if not tgt_tile or not (tgt_tile.x==drill_tile[1] and tgt_tile.y==drill_tile[2]) then tgt_tile=tiles[posstr(drill_tile[1]/16,drill_tile[2]/16)] end
+        if tgt_tile and tgt_tile.id>=1 and tgt_tile.id<=12 and (tgt_tile.id-1)%3==1 then
+            if not tgt_weaken then
+                tgt_weaken=1
+            end
+            tgt_weaken=tgt_weaken-drill_spd
+            if tgt_weaken<=0 then
+                tiles[posstr(drill_tile[1]/16,drill_tile[2]/16)]=nil
+            end
+        end
+        end
+        fuel=fuel-fuel_consume
+    else
+        drill_hold=nil
+        drill_tile=nil
+        tgt_tile=nil
+        tgt_weaken=nil
+    end
+end
+
 function water_coll(plr)
     for k,tile in pairs(tiles) do
         if tile.id==13 and AABB(tile.x,tile.y,16,16,plr.x,plr.y,plr.w,plr.h) then
@@ -196,6 +232,13 @@ function sprite_coll(plr)
             if AABB(s.x,s.y,16,16,plr.x,plr.y,plr.w,plr.h) then
                 table.remove(sprites,i)
                 jetpack=true
+                fuel=fuel+0.5
+            end
+        end
+        if s.id==16 then
+            if AABB(s.x,s.y,16,16,plr.x,plr.y,plr.w,plr.h) then
+                table.remove(sprites,i)
+                drill=true
                 fuel=fuel+0.5
             end
         end

@@ -170,7 +170,7 @@ function unique_objs()
     end
     if loaded then
     for i,s in ipairs(sprites) do
-        if s.visible then out[s.id]=true end
+        if s.visible and not s.dead then out[s.id]=true end
     end
     end
     return out

@@ -174,12 +174,22 @@ function draw_sprites()
                     s_quad=dn_quad1
                     if math.abs(s.dx)>0.08 then s_quad=_G['dn_quad'..tostring(math.floor(t*0.2%4+1))] end
                     lg.draw(dinosheet,s_quad,s.x-2,s.y-4,flip) 
+                    
+                    if (drill and drill_tile and (press('lctrl') or press('rctrl')) and t%32<16) then
+                    if tgt_tile and tgt_tile.id>=1 and tgt_tile.id<=12 and (tgt_tile.id-1)%3==1 then
+                    lg.draw(sprsheet,dr_quad,drill_tile[1],drill_tile[2])
+                    else
+                    lg.draw(sprsheet,dr_quad2,drill_tile[1],drill_tile[2])
+                    end
+                    end
                 else
-                    for i,px in ipairs(s.pixels) do
+                    for i=#s.pixels,1,-1 do
+                        local px=s.pixels[i]
                         love.graphics.draw(dinosolo,px.quad,px.x,px.y)
                         px.x=px.x+px.dx
                         px.y=px.y+px.dy
                         px.dy=px.dy+0.1
+                        if px.y>=200 then table.remove(s.pixels,i) end
                     end
                 end
             end
