@@ -170,12 +170,16 @@ function use_drill(plr)
                 plr.tgt_weaken=1
             end
             plr.tgt_weaken=plr.tgt_weaken-drill_spd
+            drill_consume=true
             if plr.tgt_weaken<=0 then
                 tiles[posstr(plr.drill_tile[1]/16,plr.drill_tile[2]/16)]=nil
+                plr.drill_hold=nil
+                plr.drill_tile=nil
+                plr.tgt_tile=nil
+                plr.tgt_weaken=nil
             end
         end
         end
-        drill_consume=true
     else
         plr.drill_hold=nil
         plr.drill_tile=nil

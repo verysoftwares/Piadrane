@@ -1,5 +1,5 @@
 function vgm(filename)
-    love.vgm.VgmLoad(filename..'.vgm')
+    love.vgm.VgmLoad('MUSIC/'..filename..'.vgm')
     play_t=love.timer.getTime()/100
     playing=filename..'.vgm'
     love.vgm.VgmPlay()

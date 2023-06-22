@@ -80,7 +80,7 @@ function load_level(filename,ingame)
         wf_coroutine=nil
         loaded=false
         spriteloaded=false
-        if not ingame then editmode=true end
+        editmode=not ingame
         tiles={}
     end
     
