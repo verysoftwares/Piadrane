@@ -9,6 +9,7 @@ function mainupdate()
 
     if spriteloaded then
     new_idea('walk')
+    if cur_level=='LEVEL3.LVL' then new_idea('drillwant') end
     for i,s in ipairs(sprites) do
         if s.id==17 and s.dummy and s.dead then
             new_idea('flames')
@@ -274,6 +275,7 @@ function sprite_coll(plr)
             if AABB(s.x,s.y,16,16,plr.x,plr.y,plr.w,plr.h) then
                 table.remove(sprites,i)
                 jetpack=true
+                new_idea('jetpack')
                 fuel=fuel+0.5
                 if fuel>1 then fuel=1 end
             end
@@ -282,6 +284,7 @@ function sprite_coll(plr)
             if AABB(s.x,s.y,16,16,plr.x,plr.y,plr.w,plr.h) then
                 table.remove(sprites,i)
                 drill=true
+                new_idea('drill')
                 fuel=fuel+0.5
                 if fuel>1 then fuel=1 end
             end
@@ -289,6 +292,7 @@ function sprite_coll(plr)
         if s.id==19 then
             if AABB(s.x,s.y,16,16,plr.x,plr.y,plr.w,plr.h) then
                 table.remove(sprites,i)
+                new_idea('fuel')
                 fuel=fuel+0.5
                 if fuel>1 then fuel=1 end
             end
