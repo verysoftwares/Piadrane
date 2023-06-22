@@ -98,6 +98,8 @@ function co_tile(x,y,color,id)
         end
     end
 
+    if (id-1)%3==1 then return end
+
     coroutine.yield()
     
     -- inner edges

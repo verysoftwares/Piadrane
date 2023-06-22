@@ -10,13 +10,16 @@ function mainupdate()
     if spriteloaded then
     new_idea('walk')
     if cur_level=='LEVEL3.LVL' then new_idea('drillwant') end
+    if not find(idea_order,'flames') then
     for i,s in ipairs(sprites) do
         if s.id==17 and s.dummy and s.dead then
             new_idea('flames')
             break
         end
     end
+    end
     if return_idea then new_idea('return') end
+    if not find(idea_order,'backdoor') then
     if backdoor_idea then 
         local plr=sprites[#sprites]
         for i,s in ipairs(sprites) do
@@ -25,6 +28,7 @@ function mainupdate()
             break
             end
         end
+    end
     end
     end
 
