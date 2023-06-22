@@ -12,17 +12,17 @@ function new_idea(name)
 
     local screen=love.graphics.getCanvas()
     love.graphics.setCanvas(idea_db[name].canvas)
-    if 1 then
-    love.graphics.draw(screen,-sprites[#sprites].x+16+2,-sprites[#sprites].y+16+4) 
-    else end
+    if name~='flames' then
+        love.graphics.draw(screen,-sprites[#sprites].x+16+2,-sprites[#sprites].y+16+4) 
+    elseif name=='flames' then
+        for i,s in ipairs(sprites) do
+        if s.id==17 and s.dummy and s.dead then
+        love.graphics.draw(screen,-s.x+16+2,-s.y+16+4) 
+        end
+        end
+    end
     love.graphics.setCanvas()
 end
-
-idea_db={
-    ['walk']={msg='This is me, Pia! I can use the arrow keys to move around!'},
-    ['jump']={msg='The Alt key makes me all jumpy!'},
-    ['waterfall']={msg='I can swim up waterfalls with the Up key! Or travel really fast down, like nyyooomm'},
-}
 
 function ideascreen()
     general_update()
@@ -96,3 +96,16 @@ function unread_ideas()
     end
     return out
 end
+
+idea_db={
+    ['walk']={msg='This is me, Pia! I can use the arrow keys to move around!'},
+    ['jump']={msg='The Alt key makes me all jumpy!'},
+    ['waterfall']={msg='I can swim up waterfalls with the Up key! Or travel really fast down, like nyyooomm'},
+    ['exit']={msg='That\'s a level exit! It\'ll take me to new and interesting places.'},
+    ['backdoor']={msg='I can use this flipped exit to backtrack to the previous level, by pressing Enter on top of it.'},
+    ['return']={msg='So if I return to a previous level, I will continue from where I left off.'},
+    ['toohigh']={msg='Hmm, this wall is too high to jump over. There\'s gotta be another way...'},
+    ['gem']={msg='I\'ve collected a gem! It is a magical artifact allowing me to place or remove tiles. But be careful, it\'s one-use only! Just use the mouse to select a tile from the sidebar and click anywhere to place it.'},
+    ['undo']={msg='Press Ctrl+Z to undo a tile placement.'},
+    ['flames']={msg='Whoa, that other dino just fell into the flames below! I must be careful.'},
+}

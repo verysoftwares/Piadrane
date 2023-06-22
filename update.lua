@@ -9,6 +9,22 @@ function mainupdate()
 
     if spriteloaded then
     new_idea('walk')
+    for i,s in ipairs(sprites) do
+        if s.id==17 and s.dummy and s.dead then
+            new_idea('flames')
+            break
+        end
+    end
+    if return_idea then new_idea('return') end
+    if backdoor_idea then 
+        local plr=sprites[#sprites]
+        for i,s in ipairs(sprites) do
+            if s.id==18 and s.flip and not AABB(plr.x,plr.y,plr.w,plr.h,s.x,s.y,16,16) then
+            new_idea('backdoor')
+            break
+            end
+        end
+    end
     end
 
     leftheld=left
@@ -75,6 +91,9 @@ function xcoll(plr)
     for i,dir in ipairs({-1,0,1}) do
         local below=tiles[posstr((plr.x-plr.x%16)/16+1,(plr.y-plr.y%16)/16+dir)]
         if below and below.id<13 and AABB(below.x,below.y,16,16,plr.x,plr.y,plr.w,plr.h) then
+            if cur_level=='LEVEL0.LVL' and below.x==11*16 and below.y==7*16 then
+                new_idea('toohigh')
+            end
             plr.x=below.x-plr.w
             break
         end
@@ -211,8 +230,13 @@ function sprite_coll(plr)
     for i=#sprites,1,-1 do
         local s=sprites[i]
         if s.id==14 and AABB(s.x+3,s.y+3,16-6,16-6,plr.x,plr.y,plr.w,plr.h) then
+            new_idea('gem')
             gems=gems+1
             table.remove(sprites,i)
+        end
+        if s.id==18 and AABB(s.x,s.y,16,16,plr.x,plr.y,plr.w,plr.h) then
+            if s.flip then backdoor_idea=true
+            else new_idea('exit') end
         end
         if s.id==18 and (not s.flip or (s.flip and enter)) and s.tgt and (plr.immune~=s.tgt or enter) and AABB(s.x,s.y,16,16,plr.x,plr.y,plr.w,plr.h) then
             plr.immune=s.tgt
@@ -270,6 +294,7 @@ function sprite_coll(plr)
             end
         end
     end
+
     if plr.immune then
         local immune={}
         for i,s in ipairs(sprites) do

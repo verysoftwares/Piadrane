@@ -20,13 +20,13 @@ function edit()
                         if w.x==tile.x and w.y==tile.y then table.remove(water_tiles,i); break end
                     end
                 end
-                if not editmode then gems=gems-1; sel=nil end
+                if not editmode then gems=gems-1; new_idea('undo'); sel=nil end
             else
                 local found=false
                 for i,s in ipairs(sprites) do
                     if (s.id~=17 and s.x==mox and s.y==moy) or (s.id==17 and s.x==mox+2 and s.y==moy+4) then found=i; break end
                 end
-                if found then table.remove(sprites,found); if not editmode then gems=gems-1; sel=nil end end
+                if found then table.remove(sprites,found); if not editmode then gems=gems-1; new_idea('undo'); sel=nil end end
             end
         elseif sel>=1 and sel<=12 and (not tiles[posstr(mox/16,moy/16)]) then
             local color
@@ -42,13 +42,13 @@ function edit()
             if tiles[posstr(mox/16-1,moy/16)] and tiles[posstr(mox/16-1,moy/16)].id==sel and coroutine.status(tiles[posstr(mox/16-1,moy/16)].co)=='dead' then co_tile(mox-16,moy,color,tiles[posstr(mox/16-1,moy/16)].id) end
             if tiles[posstr(mox/16+1,moy/16)] and tiles[posstr(mox/16+1,moy/16)].id==sel and coroutine.status(tiles[posstr(mox/16+1,moy/16)].co)=='dead' then co_tile(mox+16,moy,color,tiles[posstr(mox/16+1,moy/16)].id) end
 
-            if not editmode then gems=gems-1; sel=nil end
+            if not editmode then gems=gems-1; new_idea('undo'); sel=nil end
         elseif sel==13 then
             local tile=tiles[posstr(mox/16,moy/16)]
             if not tile then
                 table.insert(water_tiles,{mox,moy})
                 co_water(mox,moy)
-                if not editmode then gems=gems-1; sel=nil end
+                if not editmode then gems=gems-1; new_idea('undo'); sel=nil end
             end
         elseif sel>13 then
             local found=false
@@ -71,7 +71,7 @@ function edit()
                     sprites[#sprites].dx=0
                     sprites[#sprites].dy=0
                 end
-                if not editmode then gems=gems-1; sel=nil end
+                if not editmode then gems=gems-1; new_idea('undo'); sel=nil end
             end
         end
     end

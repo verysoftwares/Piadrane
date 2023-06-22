@@ -54,6 +54,7 @@ function load_level(filename,ingame)
     
     if levels[filename] then
         uncache_level(filename)
+        return_idea=true
     else
         loadstring(love.filesystem.read(filename))()
         if filename~='PIADRANE.LVL' and ingame then
