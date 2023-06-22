@@ -45,20 +45,20 @@ function ideadraw()
     end end
 
     fg(0.75*255,0.75*255,0.75*255)
-    rect('fill',0,0,320,8)
-    rect('fill',0,200-8,320,8)
+    rect('fill',0,0,320,12)
+    rect('fill',0,200-12,320,12)
     
     fg(0.95*255,0.95*255,0.95*255)
-    local msg='Pia\'s Ideas'
-    love.graphics.print(msg,320/2-fn:getWidth(msg)/2,0-1)
+    local msg=string.format('Pia\'s Ideas (%d of %d)',idea_order.i,#idea_order)
+    love.graphics.print(msg,320/2-fn:getWidth(msg)/2,0-1+2)
     local msg='Left/Right to navigate, F1 to return to game.'
-    love.graphics.print(msg,320/2-fn:getWidth(msg)/2,200-8-1)
+    love.graphics.print(msg,320/2-fn:getWidth(msg)/2,200-8-1-2)
 
     local cur_idea=idea_db[idea_order[idea_order.i]]
     love.graphics.setCanvas()
     fg(0.95*255,0.95*255,0.95*255)
-    love.graphics.rectangle('line',24-2,24-2+8,16*3+2*2,16*3+2*2)
-    love.graphics.draw(cur_idea.canvas,24,24+8)
+    love.graphics.rectangle('line',24-2,24-2+12,16*3+2*2,16*3+2*2)
+    love.graphics.draw(cur_idea.canvas,24,24+12)
     local words={}
     for w in cur_idea.msg:gmatch('%S+') do table.insert(words,w) end
     cur_idea.wordi=cur_idea.wordi or 1
@@ -67,7 +67,7 @@ function ideadraw()
     for i=1,math.min(cur_idea.wordi,#words) do
         if i==cur_idea.wordi and cur_idea.wordi<=#words then
             purple(math.floor((t-cur_idea.wordt)/2))
-            love.graphics.print(words[i],24+16*3+12+tx,24+8+12+ty+8-(t-cur_idea.wordt))
+            love.graphics.print(words[i],24+16*3+12+tx,24+12+12+ty+8-(t-cur_idea.wordt))
             if t-cur_idea.wordt>=8 then
                 cur_idea.wordt=t
                 cur_idea.wordi=cur_idea.wordi+1
@@ -77,7 +77,7 @@ function ideadraw()
             end
         else
             purple(3)
-            love.graphics.print(words[i],24+16*3+12+tx,24+12+ty+8)
+            love.graphics.print(words[i],24+16*3+12+tx,24+12+ty+12)
         end
         tx=tx+fn:getWidth(words[i]..' ')
         if i<#words and tx+fn:getWidth(words[i+1])>=320-16*3-12-24*2 --[[or words[i]=='\n']] then tx=0; ty=ty+10 end
