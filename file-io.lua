@@ -80,12 +80,12 @@ function load_level(filename,ingame)
         wf_coroutine=nil
         loaded=false
         spriteloaded=false
-        editmode=not ingame
         tiles={}
     end
     
-    playmusic(filename,ingame)
+    playmusic(filename)
 
+    editmode=not ingame
     cur_level=filename    
     suq_i=nil
 end

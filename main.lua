@@ -6,12 +6,32 @@ require 'edit'
 require 'draw'
 require 'update'
 require 'corouts'
+require 'idea'
 require 'music'
 require 'color'
 
 function love.keypressed(key)
     if key == "escape" then
-        love.event.quit()
+        if love.update==mainupdate then
+            love.event.quit()
+        elseif love.update==ideascreen then
+            love.update=mainupdate
+            love.draw=maindraw
+            playmusic(cur_level)
+        end
+    end
+    if key=='f1' and #idea_order>0 then
+        if love.update==mainupdate then
+            love.update=ideascreen
+            love.draw=ideadraw
+            -- skip to first unread
+            for i,v in ipairs(idea_order) do if not idea_db[v].read then idea_order.i=i; break end end
+            playmusic('NEWIDEA')
+        elseif love.update==ideascreen then
+            love.update=mainupdate
+            love.draw=maindraw
+            playmusic(cur_level)
+        end
     end
     if love.update==namefile then
         if #key==1 and #savefile<8 then

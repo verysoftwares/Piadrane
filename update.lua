@@ -7,6 +7,10 @@ end
 function mainupdate()
     general_update()
 
+    if spriteloaded then
+    new_idea('walk')
+    end
+
     leftheld=left
     left=love.mouse.isDown(1)
     right=love.mouse.isDown(2)
@@ -100,6 +104,9 @@ function ycoll(plr)
         local below=tiles[posstr((plr.x-plr.x%16)/16+dir,(plr.y-plr.y%16)/16+1)]
         if below and below.id<13 and AABB(below.x,below.y,16,16,plr.x,plr.y,plr.w,plr.h) then
             plr.y=below.y-plr.h
+            if plr.dy>0.4 and not plr.onground then
+            new_idea('jump')
+            end
             plr.dy=0
             plr.onground=true
             break

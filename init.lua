@@ -17,6 +17,7 @@ function love.load()
     fi_quad1=love.graphics.newQuad(6*16,0,16,16)
     fi_quad2=love.graphics.newQuad(6*16,2*16,16,16)
     dr_quad2=love.graphics.newQuad(5*16,2*16,16,16)
+    lb_quad=love.graphics.newQuad(5*16,3*16,16,16)
 
     dinosheet=love.graphics.newImage('GFX/dino.png')
     dinosolo=love.graphics.newImage('GFX/dinosolo.png')
