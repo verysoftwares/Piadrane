@@ -199,6 +199,7 @@ function water_coll(plr)
     for k,tile in pairs(tiles) do
         if tile.id==13 and AABB(tile.x,tile.y,16,16,plr.x,plr.y,plr.w,plr.h) then
             plr.dy=plr.dy+0.085
+            new_idea('waterfall')
             return true
         end
     end
