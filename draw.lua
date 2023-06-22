@@ -174,8 +174,15 @@ function draw_sprites()
                     s_quad=dn_quad1
                     if math.abs(s.dx)>0.08 then s_quad=_G['dn_quad'..tostring(math.floor(t*0.2%4+1))] end
                     
+                    if not s.dummy then
                     for i=1,unread_ideas() do
+                    if unread_ideas()==#idea_order and t%24<12 then
+                    purple(3)
+                    lg.print('F1',s.x+1,s.y-i*16)
+                    else
                     lg.draw(sprsheet,lb_quad,s.x-2,s.y-4-i*16)
+                    end
+                    end
                     end
                     
                     lg.draw(dinosheet,s_quad,s.x-2,s.y-4,flip) 

@@ -17,7 +17,7 @@ function new_idea(name)
 end
 
 idea_db={
-    ['walk']={msg='I can use the arrow keys to move around!'},
+    ['walk']={msg='This is me! I can use the arrow keys to move around!'},
     ['jump']={msg='The Alt key makes me all jumpy!'}
 }
 
@@ -53,9 +53,9 @@ function ideadraw()
     local tx,ty=0,0
     for i=1,math.min(cur_idea.wordi,#words) do
         if i==cur_idea.wordi and cur_idea.wordi<=#words then
-            purple(math.floor((t-cur_idea.wordt)/3))
+            purple(math.floor((t-cur_idea.wordt)/2))
             love.graphics.print(words[i],24+16*3+12+tx,24+12+ty)
-            if t-cur_idea.wordt>=12 then
+            if t-cur_idea.wordt>=8 then
                 cur_idea.wordt=t
                 cur_idea.wordi=cur_idea.wordi+1
                 if cur_idea.wordi>#words then
@@ -67,7 +67,7 @@ function ideadraw()
             love.graphics.print(words[i],24+16*3+12+tx,24+12+ty)
         end
         tx=tx+fn:getWidth(words[i]..' ')
-        if tx>320-16*3-24*2 then tx=0; ty=ty+10 end
+        if i<#words and tx+fn:getWidth(words[i+1])>=320-16*3-12-24*2 --[[or words[i]=='\n']] then tx=0; ty=ty+10 end
     end
 
     purple(3)
