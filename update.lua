@@ -105,7 +105,7 @@ end
 function xcoll(plr)
     for i,dir in ipairs({-1,0,1}) do
         local below=tiles[posstr((plr.x-plr.x%16)/16+1,(plr.y-plr.y%16)/16+dir)]
-        if below and below.id<13 and AABB(below.x,below.y,16,16,plr.x,plr.y,plr.w,plr.h) then
+        if below and below.id<13 and ((below.id-1)%3>0 or switch[math.floor((below.id-1)/3)+1]) and AABB(below.x,below.y,16,16,plr.x,plr.y,plr.w,plr.h) then
             if cur_level=='LEVEL0.LVL' and below.x==11*16 and below.y==7*16 then
                 new_idea('toohigh')
             end
@@ -113,7 +113,7 @@ function xcoll(plr)
             break
         end
         local above=tiles[posstr((plr.x-plr.x%16)/16,(plr.y-plr.y%16)/16+dir)]
-        if above and above.id<13 and AABB(above.x,above.y,16,16,plr.x,plr.y,plr.w,plr.h) then
+        if above and above.id<13 and ((above.id-1)%3>0 or switch[math.floor((above.id-1)/3)+1]) and AABB(above.x,above.y,16,16,plr.x,plr.y,plr.w,plr.h) then
             plr.x=above.x+16
             break
         end
@@ -136,7 +136,7 @@ end
 function ycoll(plr)
     for i,dir in ipairs({-1,0,1}) do
         local below=tiles[posstr((plr.x-plr.x%16)/16+dir,(plr.y-plr.y%16)/16+1)]
-        if below and below.id<13 and AABB(below.x,below.y,16,16,plr.x,plr.y,plr.w,plr.h) then
+        if below and below.id<13 and ((below.id-1)%3>0 or switch[math.floor((below.id-1)/3)+1]) and AABB(below.x,below.y,16,16,plr.x,plr.y,plr.w,plr.h) then
             plr.y=below.y-plr.h
             if plr.dy>0.4 and not plr.onground then
             new_idea('jump')
@@ -146,7 +146,7 @@ function ycoll(plr)
             break
         end
         local above=tiles[posstr((plr.x-plr.x%16)/16+dir,(plr.y-plr.y%16)/16)]
-        if above and above.id<13 and AABB(above.x,above.y,16,16,plr.x,plr.y,plr.w,plr.h) then
+        if above and above.id<13 and ((above.id-1)%3>0 or switch[math.floor((above.id-1)/3)+1]) and AABB(above.x,above.y,16,16,plr.x,plr.y,plr.w,plr.h) then
             plr.y=above.y+16
             break
         end
