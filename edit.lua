@@ -3,8 +3,11 @@ newtiles={}
 sprites={}
 water_tiles={}
 editmode=true
+switch_col=1
 
 function edit()
+    if sel==21 and tapped('r') then switch_col=switch_col+1; if switch_col>4 then switch_col=1 end end
+
     if sel and left and --[[not AABB(320-19,17,19,200-16-17+1,mox,moy,1,1)]] mox<320-20 and moy<200-8 then
         if sel==0 then
             local tile=tiles[posstr(mox/16,moy/16)]
@@ -64,7 +67,8 @@ function edit()
             if not found then
                 local offx,offy=0,0
                 if sel==17 then offx,offy=2,4 end
-                table.insert(sprites,{x=mox+offx,y=moy+offy,id=sel,visible=true})
+                if sel~=21 then table.insert(sprites,{x=mox+offx,y=moy+offy,id=sel,visible=true})
+                else table.insert(sprites,{x=mox+offx,y=moy+offy,id=sel,visible=true,color=switch_col}) end
                 if sel==17 then
                     sprites[#sprites].w=12
                     sprites[#sprites].h=12
@@ -157,7 +161,7 @@ end
 function unique_objs()
     local out={[0]=true}
     if editmode then
-        for i=1,20 do out[i]=true end
+        for i=1,21 do out[i]=true end
         return out
     end
 

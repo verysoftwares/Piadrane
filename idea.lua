@@ -112,4 +112,6 @@ idea_db={
     ['drillwant']={msg='If only I had the drill, I would be able to remove these checkerboard tiles. But I can\'t reach it... What do I do now?'},
     ['drill']={msg='There we go, drill unlocked! Ctrl+arrows to use. It consumes fuel just like the jetpack.'},
     ['fuel']={msg='That\'s a fuel cell, replenishing half of the fuel meter. I should keep track of fuel cell locations so I can pick them up when I need them.'},
+    ['switch']={msg='I wonder what happens if I flip this switch with the Up key. I\'m not the sort of dino to leave a switch un-flipped!'},
+    ['switchfar']={msg='Ooh, so switches even affect tiles outside of their level.'},
 }

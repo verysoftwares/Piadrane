@@ -30,6 +30,16 @@ function mainupdate()
         end
     end
     end
+    if not find(idea_order,'switchfar') then
+        if cur_level~='LEVEL5.LVL' then
+        for k,tile in pairs(tiles) do
+            if tile.id>=1 and tile.id<=12 and (tile.id-1)%3==0 and not switch[math.floor((tile.id-1)/3)+1] then
+            new_idea('switchfar')
+            break
+            end
+        end
+        end
+    end
     end
 
     leftheld=left
@@ -232,6 +242,7 @@ end
 
 function sprite_coll(plr)
     local enter=tapped('return')
+    local up=tapped('up')
     for i=#sprites,1,-1 do
         local s=sprites[i]
         if s.id==14 and AABB(s.x+3,s.y+3,16-6,16-6,plr.x,plr.y,plr.w,plr.h) then
@@ -299,6 +310,14 @@ function sprite_coll(plr)
                 new_idea('fuel')
                 fuel=fuel+0.5
                 if fuel>1 then fuel=1 end
+            end
+        end
+        if s.id==21 then
+            if AABB(s.x,s.y,16,16,plr.x,plr.y,plr.w,plr.h) then
+                new_idea('switch')
+                if up then
+                    switch[s.color]=not switch[s.color]
+                end
             end
         end
     end

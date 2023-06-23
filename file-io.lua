@@ -27,12 +27,14 @@ function save_level(filename)
 
     out=out..'sprites={\n'
     for i,sp in ipairs(sprites) do
-        if sp.id~=17 and (sp.id~=18 or (sp.id==18 and not sp.tgt)) then
+        if sp.id~=21 and sp.id~=17 and (sp.id~=18 or (sp.id==18 and not sp.tgt)) then
         out=out..string.format('{x=%d,y=%d,id=%d},',sp.x,sp.y,sp.id)
         elseif sp.id==18 and sp.tgt then
         out=out..string.format('{x=%d,y=%d,id=%d,tgt=\'%s\'},',sp.x,sp.y,sp.id,sp.tgt)
         elseif sp.id==17 then
         out=out..string.format('{x=%d,y=%d,id=%d,w=12,h=12,dx=0,dy=0},',sp.x,sp.y,sp.id)
+        elseif sp.id==21 then
+        out=out..string.format('{x=%d,y=%d,id=%d,color=%d},',sp.x,sp.y,sp.id,sp.color)
         end
     end
     out=string.sub(out,1,#out-1)

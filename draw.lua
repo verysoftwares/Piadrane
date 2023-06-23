@@ -99,7 +99,7 @@ function draw_id(id,ix,iy,trans)
         lg.setCanvas()
         lg.draw(temp_canvas,ix,iy)
     end
-    if (id>=14 and id<=16) or (id>=18 and id<=20) then
+    if (id>=14 and id<=16) or (id>=18 and id<=21) then
         if not trans then 
             --fg(0.95*255,0.95*255,0.95*255)
             fg(0.1*255,0.1*255,0.1*255)
@@ -116,6 +116,11 @@ function draw_id(id,ix,iy,trans)
         if id==19 then s_quad=fu_quad end
         if id==20 then 
             s_quad=_G['fi_quad'..tostring(math.floor((t*0.2)%2)+1)] 
+        end
+        if id==21 then
+            local color=switch_col--math.floor((t*0.08)%4)+1
+            if switch[color] then status='_on' else status='_off' end
+            s_quad=_G['sw_'..tostring(color)..status]
         end
         if trans then 
             lg.setCanvas() 
@@ -165,6 +170,11 @@ function draw_sprites()
             if s.id==19 then s_quad=fu_quad end
             if s.id==20 then 
                 s_quad=_G['fi_quad'..tostring(math.floor((t*0.2)%2)+1)] 
+            end
+            if s.id==21 then
+                local status
+                if switch[s.color] then status='_on' else status='_off' end
+                s_quad=_G['sw_'..tostring(s.color)..status]
             end
             if s.id~=17 then love.graphics.draw(sprsheet,s_quad,s.x,s.y,s.flip)
             else 
@@ -245,11 +255,18 @@ function tile_render(tile)
         bg(0.95*255,0.95*255,0.95*255)
         lg.setCanvas()
     end
+
     lg.setCanvas(tile.canvas)
     coroutine.resume(tile.co)
     lg.setCanvas()
     fg(1,1,1)
+    
+    local color=math.floor((tile.id-1)/3)+1
+    if (tile.id-1)%3>0 or switch[color] then
     lg.draw(tile.canvas,tile.x,tile.y)    
+    else
+    lg.draw(sprsheet,_G['tile_'..tostring(color)..'_off'],tile.x,tile.y)
+    end
 
     elseif tile.id==13 then
     if not tile.canvas then

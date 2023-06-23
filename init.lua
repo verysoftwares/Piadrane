@@ -4,6 +4,7 @@ gems=0
 tiles={}
 
 loaded=false
+spriteloaded=false
 
 function love.load()
     sprsheet=love.graphics.newImage('GFX/jetedits.png')
@@ -18,13 +19,17 @@ function love.load()
     fi_quad2=love.graphics.newQuad(6*16,2*16,16,16)
     dr_quad2=love.graphics.newQuad(5*16,2*16,16,16)
     lb_quad=love.graphics.newQuad(5*16,3*16,16,16)
+    for i=1,4 do
+        _G['sw_'..tostring(i)..'_on']=love.graphics.newQuad((i-1)*32,4*16,16,16)
+        _G['sw_'..tostring(i)..'_off']=love.graphics.newQuad(16+(i-1)*32,4*16,16,16)
+        _G['tile_'..tostring(i)..'_off']=love.graphics.newQuad(16*8,16+(i-1)*16,16,16)
+    end
 
     dinosheet=love.graphics.newImage('GFX/dino.png')
     dinosolo=love.graphics.newImage('GFX/dinosolo.png')
-    dn_quad1=love.graphics.newQuad(0*16,1*16,16,16)
-    dn_quad2=love.graphics.newQuad(1*16,1*16,16,16)
-    dn_quad3=love.graphics.newQuad(2*16,1*16,16,16)
-    dn_quad4=love.graphics.newQuad(3*16,1*16,16,16)
+    for i=1,4 do
+    _G['dn_quad'..tostring(i)]=love.graphics.newQuad((i-1)*16,1*16,16,16)
+    end
 
     for i=1,4 do
     _G['gem_quad'..tostring(i)]=love.graphics.newQuad(4*16,(i-1)*16,16,16)
@@ -62,3 +67,7 @@ fuel=0
 fuel_consume=0.00125
 --drill=true
 drill_spd=0.04
+
+switch={}
+for i=1,4 do switch[i]=true end
+--switch[1]=false
