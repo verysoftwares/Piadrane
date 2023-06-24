@@ -361,7 +361,7 @@ function draw_fuel()
     if fuel>0 then
     local rectw=320*fuel
     local j=0
-    for i=0,rectw,16 do
+    for i=0,rectw-1,16 do
         fg((0.8-j*0.02)*255,(0.2+j*0.04)*255,(0.4)*255)
         rect('fill',i,200-6,16,4)
         j=j+1

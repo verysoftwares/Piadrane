@@ -219,7 +219,7 @@ function use_drill(plr)
                 local drilled=tiles[posstr(plr.drill_tile[1]/16,plr.drill_tile[2]/16)]
                 tiles[posstr(plr.drill_tile[1]/16,plr.drill_tile[2]/16)]=nil
                 local color
-                local cid=math.floor((drilled.id-1)/3)
+                local cid=math.floor((drilled.id-1-1)/3)
                 if cid==0 then color=green end
                 if cid==1 then color=purple end
                 if cid==2 then color=blue end
