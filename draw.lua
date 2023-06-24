@@ -15,6 +15,8 @@ function maindraw()
 
     --palette_test()
     
+    draw_bg_tiles()
+
     draw_tiles()
 
     draw_sprites()
@@ -238,6 +240,19 @@ function draw_cursor()
         fg((0.8-(t*0.6)%12*0.02)*255,(0.2+(t*0.6)%12*0.04)*255,(0.4)*255)
         rect('line',mox-1,moy-1,18,18) 
         end
+    end
+end
+
+function draw_bg_tiles()
+    for k,bgtile in pairs(bg_tiles) do
+        bgtile.color(0)
+        rect('fill',bgtile.x,bgtile.y,16,16)
+        for rx=0,16-1,4 do for ry=0,16-1,4 do
+        if (rx/4+ry/4)%2==0 then
+        bgtile.color(-1)
+        rect('fill',bgtile.x+rx,bgtile.y+ry,4,4)
+        end end
+        end 
     end
 end
 

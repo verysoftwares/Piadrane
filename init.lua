@@ -2,6 +2,9 @@ t=0
 gems=0
 
 tiles={}
+bg_tiles={}
+sprites={}
+water_tiles={}
 
 loaded=false
 spriteloaded=false

@@ -216,7 +216,15 @@ function use_drill(plr)
             plr.tgt_weaken=plr.tgt_weaken-drill_spd
             drill_consume=true
             if plr.tgt_weaken<=0 then
+                local drilled=tiles[posstr(plr.drill_tile[1]/16,plr.drill_tile[2]/16)]
                 tiles[posstr(plr.drill_tile[1]/16,plr.drill_tile[2]/16)]=nil
+                local color
+                local cid=math.floor((drilled.id-1)/3)
+                if cid==0 then color=green end
+                if cid==1 then color=purple end
+                if cid==2 then color=blue end
+                if cid==3 then color=yellow end
+                bg_tiles[posstr(plr.drill_tile[1]/16,plr.drill_tile[2]/16)]={x=drilled.x,y=drilled.y,id=drilled.id,color=color}
                 plr.drill_hold=nil
                 plr.drill_tile=nil
                 plr.tgt_tile=nil

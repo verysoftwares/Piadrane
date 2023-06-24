@@ -86,6 +86,7 @@ function load_level(filename,ingame)
         loaded=false
         spriteloaded=false
         tiles={}
+        bg_tiles={}
     end
 
     playmusic(filename)
@@ -97,13 +98,20 @@ end
 
 levels={}
 function cache_level(filename)
-    levels[filename]={tiles={},sprites={},water_tiles={}}
+    levels[filename]={bg_tiles={},tiles={},sprites={},water_tiles={}}
     for k,tile in pairs(tiles) do
         local out={}
         for l,v in pairs(tile) do
             out[l]=v
         end
         levels[filename].tiles[k]=out
+    end
+    for k,tile in pairs(bg_tiles) do
+        local out={}
+        for l,v in pairs(tile) do
+            out[l]=v
+        end
+        levels[filename].bg_tiles[k]=out
     end
     for i,wt in ipairs(water_tiles) do
         local out={}
@@ -125,12 +133,13 @@ function uncache_level(filename)
     tiles=levels[filename].tiles
     sprites=levels[filename].sprites
     water_tiles=levels[filename].water_tiles
+    bg_tiles=levels[filename].bg_tiles
 end
 
 states={}
 
 function save_state()
-    table.insert(states,{tiles={},sprites={}})
+    table.insert(states,{bg_tiles={},tiles={},sprites={}})
     local state=states[#states]
     for k,tile in pairs(tiles) do
         local out={}
@@ -138,6 +147,13 @@ function save_state()
             out[l]=v
         end
         state.tiles[k]=out
+    end
+    for k,tile in pairs(bg_tiles) do
+        local out={}
+        for l,v in pairs(tile) do
+            out[l]=v
+        end
+        state.bg_tiles[k]=out
     end
     for i,sp in ipairs(sprites) do
         local out={}
@@ -155,6 +171,7 @@ function load_state()
     if #states==0 then return end
     local state=states[#states]
     --newtiles=state.newtiles
+    bg_tiles=state.bg_tiles
     tiles=state.tiles
     sprites=state.sprites
     cur_level=state.cur_level
