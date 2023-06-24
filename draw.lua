@@ -198,7 +198,9 @@ function draw_sprites()
                     end
                     end
                     
+                    if not s.exited then
                     lg.draw(dinosheet,s_quad,s.x-2,s.y-4,flip) 
+                    end
                     
                     if (drill and s.drill_tile and (press('lctrl') or press('rctrl')) and t%24<12) then
                     if s.tgt_tile and s.tgt_tile.id>=1 and s.tgt_tile.id<=12 and (s.tgt_tile.id-1)%3==1 then
@@ -207,7 +209,7 @@ function draw_sprites()
                     lg.draw(sprsheet,dr_quad2,s.drill_tile[1],s.drill_tile[2])
                     end
                     end
-                else
+                else 
                     for i=#s.pixels,1,-1 do
                         local px=s.pixels[i]
                         love.graphics.draw(dinosolo,px.quad,px.x,px.y)

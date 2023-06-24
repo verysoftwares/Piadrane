@@ -12,6 +12,7 @@ function mainupdate()
         load_state()
     end
     new_idea('walk')
+    if multiexit then new_idea('multiexit') end
     if cur_level=='LEVEL3.LVL' then new_idea('drillwant') end
     if not find(idea_order,'flames') then
     for i,s in ipairs(sprites) do
@@ -52,7 +53,7 @@ function mainupdate()
     if sel and --[[not AABB(320-19,17,19,200-16-17+1,mox,moy,1,1)]] mox<320-20 then mox,moy=mox-mox%16,moy-moy%16 end
 
     if spriteloaded and not editmode then
-        for i,sp in ipairs(sprites) do if sp.id==17 and not sp.dead then
+        for i,sp in ipairs(sprites) do if sp.id==17 and not sp.dead and not sp.exited then
             local plr=sp
             if press('left') and not (drill and (press('lctrl') or press('rctrl'))) then if plr.dx>0 then plr.dx=0 end; plr.dx=plr.dx-0.3 end
             if press('right') and not (drill and (press('lctrl') or press('rctrl'))) then if plr.dx<0 then plr.dx=0 end; plr.dx=plr.dx+0.3 end
@@ -267,12 +268,29 @@ function sprite_coll(plr)
         end
         if s.id==18 and (not s.flip or (s.flip and enter)) and s.tgt and (plr.immune~=s.tgt or enter) and AABB(s.x,s.y,16,16,plr.x,plr.y,plr.w,plr.h) then
             plr.immune=s.tgt
+
+            for i2,s2 in ipairs(sprites) do
+                if s2.id==17 and s2~=plr and not s2.exited and not s2.dead then
+                    multiexit=true
+                    plr.exited=true
+                    plr.x=s.x+2; plr.y=s.y+4
+                    return
+                end
+            end
+
+            if multiexit then
+                for i2,s2 in ipairs(sprites) do
+                    if s2.id==17 then s2.exited=false end
+                end
+            end
+
             if cur_level=='PIADRANE.LVL' then
                 love.update=YNmodal
                 YNtgt=s.tgt
                 YNplr=plr
                 if YNtgt=='LEVEL0.LVL' then
                     YNmsg='Want to start a new game? Y/N'
+                    -- if has been visited already
                     if levels['LEVEL0.LVL'] then
                         love.update=mainupdate
                         load_level(YNtgt,true)

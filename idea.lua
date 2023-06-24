@@ -6,6 +6,10 @@ function new_idea(name)
     if idea_db[name].canvas then return end
 
     idea_db[name].canvas=lg.newCanvas(16*3,16*3)
+    lg.setCanvas(idea_db[name].canvas)
+    fg(0.1*255,0.1*255,0.1*255)
+    rect('fill',0,0,16*3,16*3)
+    lg.setCanvas()
     --idea_db[name].i=idea_i
     --idea_i=idea_i+1
     table.insert(idea_order,name)
@@ -116,4 +120,5 @@ idea_db={
     ['fuel']={msg='That\'s a fuel cell, replenishing half of the fuel meter. I should keep track of fuel cell locations so I can pick them up when I need them.'},
     ['switch']={msg='I wonder what happens if I flip this switch with the Up key. I\'m not the sort of dino to leave a switch un-flipped!'},
     ['switchfar']={msg='Ooh, so switches even affect tiles outside of their level.'},
+    ['multiexit']={msg='All dinos must exit a level together. That\'s part of the Dino Code.'},
 }
