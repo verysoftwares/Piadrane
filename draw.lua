@@ -442,12 +442,12 @@ function spec_draw()
             for i=1,#msg do
                 yellow(math.floor((i*0.2+t*0.06)%4))
                 local char=string.sub(msg,i,i)
-                love.graphics.print(char,320/2-8-fn:getWidth(msg)/2+tx+1,32+math.sin(i*0.6+t*0.2)*3)
+                love.graphics.print(char,320/2-fn:getWidth(msg)/2+tx+1,32+math.sin(i*0.6+t*0.2)*3)
                 tx=tx+fn:getWidth(char)
             end
             purple(3)
             msg='Ctrl+Z to reset to previous checkpoint.'
-            love.graphics.print(msg,320/2-8-fn:getWidth(msg)/2+1,32+24+42)            
+            love.graphics.print(msg,320/2-fn:getWidth(msg)/2+1,32+24+42+8+8+8+8)
             break
         end
     end
