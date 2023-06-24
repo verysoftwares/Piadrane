@@ -8,6 +8,9 @@ function mainupdate()
     general_update()
 
     if spriteloaded then
+    if (press('lctrl') or press('rctrl')) and tapped('z') then
+        load_state()
+    end
     new_idea('walk')
     if cur_level=='LEVEL3.LVL' then new_idea('drillwant') end
     if not find(idea_order,'flames') then
@@ -107,7 +110,7 @@ function xcoll(plr)
         local below=tiles[posstr((plr.x-plr.x%16)/16+1,(plr.y-plr.y%16)/16+dir)]
         if below and below.id<13 and ((below.id-1)%3>0 or switch[math.floor((below.id-1)/3)+1]) and AABB(below.x,below.y,16,16,plr.x,plr.y,plr.w,plr.h) then
             if cur_level=='LEVEL0.LVL' and below.x==11*16 and below.y==7*16 then
-                new_idea('toohigh')
+                if not find(idea_order,'undo') then new_idea('toohigh') end
             end
             plr.x=below.x-plr.w
             break

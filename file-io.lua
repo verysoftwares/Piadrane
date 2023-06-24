@@ -54,6 +54,8 @@ function load_level(filename,ingame)
         cache_level(cur_level)
     end
     
+    states={}
+    saved=false
     if levels[filename] then
         uncache_level(filename)
         return_idea=true
@@ -85,12 +87,12 @@ function load_level(filename,ingame)
         spriteloaded=false
         tiles={}
     end
-    
+
     playmusic(filename)
 
     editmode=not ingame
-    cur_level=filename    
     suq_i=nil
+    cur_level=filename
 end
 
 levels={}
@@ -123,4 +125,50 @@ function uncache_level(filename)
     tiles=levels[filename].tiles
     sprites=levels[filename].sprites
     water_tiles=levels[filename].water_tiles
+end
+
+states={}
+
+function save_state()
+    table.insert(states,{tiles={},sprites={}})
+    local state=states[#states]
+    for k,tile in pairs(tiles) do
+        local out={}
+        for l,v in pairs(tile) do
+            out[l]=v
+        end
+        state.tiles[k]=out
+    end
+    for i,sp in ipairs(sprites) do
+        local out={}
+        for l,v in pairs(sp) do
+            out[l]=v
+        end
+        state.sprites[i]=out
+    end
+    state.cur_level=cur_level
+    state.fuel=fuel
+    state.gems=gems
+end
+
+function load_state()
+    if #states==0 then return end
+    local state=states[#states]
+    --newtiles=state.newtiles
+    tiles=state.tiles
+    sprites=state.sprites
+    cur_level=state.cur_level
+    playmusic(cur_level)
+    fuel=state.fuel
+    gems=state.gems
+    newtiles={}
+    water_tiles={}
+    test_co=nil
+    wf_coroutine=nil
+    loaded=false
+    spriteloaded=false
+
+    table.remove(states,#states)
+    if #states==0 then save_state() end
+    --saved=false
 end

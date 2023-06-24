@@ -12,8 +12,10 @@ function new_idea(name)
 
     local screen=love.graphics.getCanvas()
     love.graphics.setCanvas(idea_db[name].canvas)
-    if name~='flames' then
+    if name~='flames' and name~='undo' then
         love.graphics.draw(screen,-sprites[#sprites].x+16+2,-sprites[#sprites].y+16+4) 
+    elseif name=='undo' then
+        love.graphics.draw(screen,-mox+16,-moy+16) 
     elseif name=='flames' then
         for i,s in ipairs(sprites) do
         if s.id==17 and s.dummy and s.dead then
@@ -106,7 +108,7 @@ idea_db={
     ['return']={msg='So if I return to a previous level, I will continue from where I left off.'},
     ['toohigh']={msg='Hmm, this wall is too high to jump over. There\'s gotta be another way...'},
     ['gem']={msg='I\'ve collected a gem! It is a magical artifact allowing me to place or remove tiles. But be careful, it\'s one-use only! Just use the mouse to select a tile from the sidebar and click anywhere to place it.'},
-    ['undo']={msg='Press Ctrl+Z to undo a tile placement.'},
+    ['undo']={msg='I\'ve now placed my first tile! But if I don\'t like it, i can press Ctrl+Z to undo a tile placement.'},
     ['flames']={msg='Whoa, that other dino just fell into the flames below! I must be careful not to do the same, I want my pixels to stay intact.'},
     ['jetpack']={msg='I got the jetpack! Now I can fly with Alt. But I\'d better be mindful of the fuel meter at the bottom of the screen.'},
     ['drillwant']={msg='If only I had the drill, I would be able to remove these checkerboard tiles. But I can\'t reach it... What do I do now?'},

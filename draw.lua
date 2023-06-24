@@ -217,6 +217,10 @@ function draw_sprites()
                 end
             end
         end
+        if spriteloaded and not saved then
+            save_state()
+            saved=true
+        end
     end
 end
 
@@ -431,6 +435,22 @@ function spec_draw()
         love.graphics.print(msg,320/2-8-fn:getWidth(msg)/2+1,32+24+42+24+8+8)
     end
 
+    for i,s in ipairs(sprites) do
+        if s.id==17 and s.dead and not s.dummy then
+            local msg='Game over!'
+            local tx=0
+            for i=1,#msg do
+                yellow(math.floor((i*0.2+t*0.06)%4))
+                local char=string.sub(msg,i,i)
+                love.graphics.print(char,320/2-8-fn:getWidth(msg)/2+tx+1,32+math.sin(i*0.6+t*0.2)*3)
+                tx=tx+fn:getWidth(char)
+            end
+            purple(3)
+            msg='Ctrl+Z to reset to previous checkpoint.'
+            love.graphics.print(msg,320/2-8-fn:getWidth(msg)/2+1,32+24+42)            
+            break
+        end
+    end
     --[[if idea_db['walk'].canvas then
         love.graphics.draw(idea_db['walk'].canvas,320/2,200/2)
     end
