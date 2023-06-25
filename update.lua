@@ -53,8 +53,10 @@ function mainupdate()
     if sel and --[[not AABB(320-19,17,19,200-16-17+1,mox,moy,1,1)]] mox<320-20 then mox,moy=mox-mox%16,moy-moy%16 end
 
     if spriteloaded and not editmode then
-        for i,sp in ipairs(sprites) do if sp.id==17 and not sp.dead and not sp.exited then
+        for i,sp in ipairs(sprites) do if sp.id==17 and not sp.dead then
             local plr=sp
+
+            if not plr.exited then
             if press('left') and not (drill and (press('lctrl') or press('rctrl'))) then if plr.dx>0 then plr.dx=0 end; plr.dx=plr.dx-0.3 end
             if press('right') and not (drill and (press('lctrl') or press('rctrl'))) then if plr.dx<0 then plr.dx=0 end; plr.dx=plr.dx+0.3 end
 
@@ -70,6 +72,7 @@ function mainupdate()
             else
                 move_x(plr)
                 swim_y(plr)
+            end
             end
 
             sprite_coll(plr)
@@ -270,7 +273,7 @@ function sprite_coll(plr)
         end
         if s.id==18 and (not s.flip or (s.flip and enter)) and s.tgt and (plr.immune~=s.tgt or enter) and AABB(s.x,s.y,16,16,plr.x,plr.y,plr.w,plr.h) then
             for i2,s2 in ipairs(sprites) do
-                if s2.id==17 and s2~=plr and not s2.exited and not s2.dead then
+                if s2.id==17 and s2~=plr and not s2.exited and (not s2.dead or (s2.dead and t-s2.dead<30)) then
                     multiexit=true
                     plr.exited=true
                     plr.x=s.x+2; plr.y=s.y+4
@@ -372,7 +375,7 @@ function sprite_coll(plr)
 end
 
 function die(plr)
-    plr.dead=true
+    plr.dead=t
     plr.pixels={}
     for px=0,16-1 do for py=0,16-1 do
         table.insert(plr.pixels,{quad=love.graphics.newQuad(px,py,1,1),x=plr.x-2+px,y=plr.y-4+py,dx=-(8-px)*0.2,dy=-(16-py)*0.2})
