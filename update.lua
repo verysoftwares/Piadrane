@@ -262,13 +262,13 @@ function sprite_coll(plr)
             gems=gems+1
             table.remove(sprites,i)
         end
-        if s.id==18 and AABB(s.x,s.y,16,16,plr.x,plr.y,plr.w,plr.h) then
-            if s.flip then backdoor_idea=true
-            else new_idea('exit') end
+        if s.id==18 and AABB(s.x,s.y,16,16,plr.x,plr.y,plr.w,plr.h) and s.flip then
+            backdoor_idea=true
+        end
+        if s.id==18 and AABB(plr.x-2-8,plr.y-4-8,16*2,16*2,s.x+8,s.y+8,1,1) then
+            new_idea('exit') 
         end
         if s.id==18 and (not s.flip or (s.flip and enter)) and s.tgt and (plr.immune~=s.tgt or enter) and AABB(s.x,s.y,16,16,plr.x,plr.y,plr.w,plr.h) then
-            plr.immune=s.tgt
-
             for i2,s2 in ipairs(sprites) do
                 if s2.id==17 and s2~=plr and not s2.exited and not s2.dead then
                     multiexit=true
@@ -277,6 +277,8 @@ function sprite_coll(plr)
                     return
                 end
             end
+
+            plr.immune=s.tgt
 
             if multiexit then
                 for i2,s2 in ipairs(sprites) do
