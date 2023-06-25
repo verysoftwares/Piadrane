@@ -9,27 +9,27 @@ end
 function playmusic(filename)
     if filename=='PIADRANE.LVL' then
         vgm('piadrane')
-        play_len=4.28*2
+        play_len=4.28*2*2
     end
     if filename=='CREDITS.LVL' then
         vgm('credits')
-        play_len=4.28
+        play_len=4.28*2
     end
     if string.sub(filename,1,5)=='LEVEL' and tonumber(string.sub(filename,6,6))<3 then
         vgm('lvlearly')
-        play_len=4.28*4
+        play_len=4.28*4*2
     end
     if filename=='LEVEL4.LVL' then
         vgm('congrats')
-        play_len=4.28*2
+        play_len=4.28*2*2
     end
     if filename=='LEVEL5.LVL' or filename=='LEVEL3.LVL' then
         vgm('lvlmid')
-        play_len=4.28*5
+        play_len=4.28*5*2
     end
     if filename=='NEWIDEA' then
         vgm('newidea')
-        play_len=4.28*2
+        play_len=4.28*2*2
     end
 end
 
