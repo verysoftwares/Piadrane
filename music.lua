@@ -7,7 +7,7 @@ function vgm(filename)
 end
 
 function playmusic(filename)
-    if filename=='PIADRANE.LVL' then
+    if filename=='PIADRANE.LVL' or filename=='LEVEL4.LVL' then
         vgm('piadrane')
         play_len=4.28*2*2
     end
@@ -18,10 +18,6 @@ function playmusic(filename)
     if string.sub(filename,1,5)=='LEVEL' and tonumber(string.sub(filename,6,6))<3 then
         vgm('lvlearly')
         play_len=4.28*4*2
-    end
-    if filename=='LEVEL4.LVL' then
-        vgm('congrats')
-        play_len=4.28*2*2
     end
     if filename=='LEVEL5.LVL' or filename=='LEVEL3.LVL' then
         vgm('lvlmid')
