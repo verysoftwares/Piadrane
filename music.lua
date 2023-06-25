@@ -7,7 +7,7 @@ function vgm(filename)
 end
 
 function playmusic(filename)
-    if filename=='PIADRANE.LVL' or filename=='LEVEL4.LVL' then
+    if filename=='PIADRANE.LVL' then
         vgm('piadrane')
         play_len=4.28*2*2
     end
@@ -25,6 +25,10 @@ function playmusic(filename)
     end
     if filename=='NEWIDEA' then
         vgm('newidea')
+        play_len=4.28*2*2
+    end
+    if filename=='LEVEL4.LVL' then
+        vgm('piaswing')
         play_len=4.28*2*2
     end
 end
