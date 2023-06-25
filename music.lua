@@ -29,7 +29,7 @@ function playmusic(filename)
     end
     if filename=='LEVEL4.LVL' then
         vgm('piaswing')
-        play_len=4.28*2*2
+        play_len=3.57*2*2
     end
 end
 
