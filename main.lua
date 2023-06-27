@@ -62,3 +62,5 @@ end
 
 love.update=mainupdate
 love.draw=maindraw
+
+DEBUG=true

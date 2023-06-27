@@ -73,7 +73,7 @@ function ideadraw()
     for i=1,math.min(cur_idea.wordi,#words) do
         if i==cur_idea.wordi and cur_idea.wordi<=#words then
             purple(math.floor((t-cur_idea.wordt)/2))
-            love.graphics.print(words[i],24+16*3+12+tx,24+12+12+ty+8-(t-cur_idea.wordt))
+            love.graphics.print(words[i],24+16*3+12+tx,24+12+12+ty+8-math.min((t-cur_idea.wordt),8))
             if t-cur_idea.wordt>=8 then
                 cur_idea.wordt=t
                 cur_idea.wordi=cur_idea.wordi+1
@@ -89,7 +89,7 @@ function ideadraw()
         if i<#words and tx+fn:getWidth(words[i+1])>=320-16*3-12-24*2 --[[or words[i]=='\n']] then tx=0; ty=ty+10 end
     end
 
-    while love.timer.getTime()/100-start_t<1/90 do
+    while love.timer.getTime()/100-dt<1/90 do
     end
 end
 
@@ -104,11 +104,12 @@ function unread_ideas()
 end
 
 idea_db={
-    ['walk']={msg='This is me, Pia! I can use the arrow keys to move around!'},
+    ['walk']={msg='This is me, Pia the dino! I can use the arrow keys to move around!'},
     ['jump']={msg='The Alt key makes me all jumpy!'},
     ['waterfall']={msg='I can swim up waterfalls with the Up key! Or travel really fast down, like nyyooomm'},
     ['exit']={msg='That\'s a level exit! These will take me to new and interesting places.'},
     ['noexit']={msg='This exit goes nowhere.'},
+    ['gndexit']={msg='I\'ve got to stand on solid ground to use an exit.'},
     ['backdoor']={msg='I can use this flipped exit to backtrack to the previous level, by pressing Enter on top of it.'},
     ['return']={msg='So if I return to a previous level, I will continue from where I left off.'},
     ['toohigh']={msg='Hmm, this wall is too high to jump over. There\'s gotta be another way...'},
@@ -119,7 +120,7 @@ idea_db={
     ['drillwant']={msg='If only I had the drill, I would be able to remove these checkerboard tiles. But I can\'t reach it... What do I do now?'},
     ['drill']={msg='There we go, drill unlocked! Ctrl+arrows to use. It consumes fuel just like the jetpack.'},
     ['fuel']={msg='That\'s a fuel cell, replenishing half of the fuel meter. I should keep track of fuel cell locations so I can pick them up when I need them.'},
-    ['switch']={msg='I wonder what happens if I flip this switch with the Up key. I\'m not the sort of dino to leave a switch un-flipped!'},
+    ['switch']={msg='I wonder what happens if I flip this switch with the Down key. I\'m not the sort of dino to leave a switch un-flipped!'},
     ['switchfar']={msg='Ooh, so switches even affect tiles outside of their level.'},
     ['multiexit']={msg='All dinos must exit a level together. That\'s part of the Dino Code.'},
 }
