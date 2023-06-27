@@ -34,7 +34,7 @@ function maindraw()
 
     spec_draw()
     
-    while love.timer.getTime()/100-start_t<1/90 do
+    while love.timer.getTime()/100-dt<1/90 do
     end
 end
 
@@ -442,14 +442,18 @@ function spec_draw()
             tx=tx+fn:getWidth(char)
         end
         purple(3)
-        msg='This was version 1D'
+        msg='Time taken:'
         love.graphics.print(msg,320/2-8-fn:getWidth(msg)/2+1,32+24+42)
-        msg='(first public playtest build).'
+        msg=string.format('%.2d:%.2d',math.floor((end_t-start_t)/60),math.floor(end_t-start_t)%60)
         love.graphics.print(msg,320/2-8-fn:getWidth(msg)/2+1,32+24+42+8)
-        msg='Stay tuned for more content'
+        msg='This was version 1D'
         love.graphics.print(msg,320/2-8-fn:getWidth(msg)/2+1,32+24+42+24+8)
-        msg='in the near future!'
+        msg='(first public playtest build).'
         love.graphics.print(msg,320/2-8-fn:getWidth(msg)/2+1,32+24+42+24+8+8)
+        msg='Stay tuned for more content'
+        love.graphics.print(msg,320/2-8-fn:getWidth(msg)/2+1,32+24+42+24+8+24+8)
+        msg='in the near future!'
+        love.graphics.print(msg,320/2-8-fn:getWidth(msg)/2+1,32+24+42+24+8+24+8+8)
     end
 
     for i,s in ipairs(sprites) do

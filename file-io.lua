@@ -61,6 +61,9 @@ function load_level(filename,ingame)
         return_idea=true
     else
         loadstring(love.filesystem.read(filename))()
+        if filename=='LEVEL4.LVL' then
+            end_t=love.timer.getTime()/100
+        end
         if filename~='PIADRANE.LVL' and ingame then
             local toadd={}
             for i,sp in ipairs(sprites) do

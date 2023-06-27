@@ -74,3 +74,5 @@ drill_spd=0.04
 switch={}
 for i=1,4 do switch[i]=true end
 --switch[1]=false
+
+start_t=love.timer.getTime()/100
