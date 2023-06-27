@@ -282,10 +282,10 @@ function sprite_coll(plr,enter,down)
         if s.id==18 and switch[2] and not s.tgt and AABB(s.x,s.y,16,16,plr.x,plr.y,plr.w,plr.h) then
             new_idea('noexit')
         end
-        --if s.id==18 and (not s.flip or (s.flip and enter)) and AABB(s.x,s.y,16,16,plr.x,plr.y,plr.w,plr.h) and not plr.onground then
+        --if s.id==18 and (not s.flip or (s.flip and (enter or plr.exited))) and AABB(s.x,s.y,16,16,plr.x,plr.y,plr.w,plr.h) and not plr.onground then
         --    new_idea('gndexit')
         --end
-        if s.id==18 and switch[2] and (not s.flip or (s.flip and enter)) and s.tgt and (plr.immune~=s.tgt or enter) --[[and plr.onground]] and AABB(s.x,s.y,16,16,plr.x,plr.y,plr.w,plr.h) then
+        if s.id==18 and switch[2] and (not s.flip or (s.flip and (enter or plr.exited))) and s.tgt and (plr.immune~=s.tgt or enter) --[[and plr.onground]] and AABB(s.x,s.y,16,16,plr.x,plr.y,plr.w,plr.h) then
             for i2,s2 in ipairs(sprites) do
                 if s2.id==17 and s2~=plr and not s2.exited and (not s2.dead or (s2.dead and t-s2.dead<30)) then
                     multiexit=true
