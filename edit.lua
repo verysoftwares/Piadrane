@@ -6,7 +6,7 @@ editmode=true
 switch_col=1
 
 function edit()
-    if sel==21 and tapped('r') then switch_col=switch_col+1; if switch_col>5 then switch_col=1 end end
+    if editmode and sel==21 and tapped('r') then switch_col=switch_col+1; if switch_col>5 then switch_col=1 end end
 
     if sel and left and --[[not AABB(320-19,17,19,200-16-17+1,mox,moy,1,1)]] mox<320-20 and moy<200-8 then
         if sel==0 then
