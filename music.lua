@@ -15,6 +15,10 @@ function playmusic(filename)
         vgm('credits')
         play_len=4.28*2
     end
+    if filename=='OPTIONS.LVL' then
+        vgm('congrats')
+        play_len=4.28*2*2
+    end
     if string.sub(filename,1,5)=='LEVEL' and tonumber(string.sub(filename,6,6))<3 then
         vgm('lvlearly')
         play_len=4.28*4*2
