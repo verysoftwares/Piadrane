@@ -20,7 +20,7 @@ function love.keypressed(key)
             playmusic(cur_level)
         end
     end
-    if key=='f1' and #idea_order>0 and switch[5] then
+    if key=='f1' and #idea_order>0 and not switch[5] then
         if love.update==mainupdate then
             love.update=ideascreen
             love.draw=ideadraw
