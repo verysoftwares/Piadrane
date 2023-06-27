@@ -28,6 +28,8 @@ function love.load()
         _G['sw_'..tostring(i)..'_off']=love.graphics.newQuad(16+(i-1)*32,4*16,16,16)
         _G['tile_'..tostring(i)..'_off']=love.graphics.newQuad(16*8,16+(i-1)*16,16,16)
     end
+    sw_5_on=love.graphics.newQuad(2*16,3*16,16,16)
+    sw_5_off=love.graphics.newQuad(3*16,3*16,16,16)
 
     dinosheet=love.graphics.newImage('GFX/dino.png')
     dinosolo=love.graphics.newImage('GFX/dinosolo.png')
@@ -74,6 +76,5 @@ drill_spd=0.04
 
 switch={}
 for i=1,4 do switch[i]=true end
+for i=5,7 do switch[i]=false end
 --switch[1]=false
-
-start_t=love.timer.getTime()/100

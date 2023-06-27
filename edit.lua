@@ -6,7 +6,7 @@ editmode=true
 switch_col=1
 
 function edit()
-    if sel==21 and tapped('r') then switch_col=switch_col+1; if switch_col>4 then switch_col=1 end end
+    if sel==21 and tapped('r') then switch_col=switch_col+1; if switch_col>5 then switch_col=1 end end
 
     if sel and left and --[[not AABB(320-19,17,19,200-16-17+1,mox,moy,1,1)]] mox<320-20 and moy<200-8 then
         if sel==0 then
@@ -102,12 +102,14 @@ function render_sidebar()
     if not editmode and gems==0 then offx=offx+(18-offx)*0.1
     else offx=offx+(0-offx)*0.1 end
     
-    purple(3)
+    green(1)
+    love.graphics.rectangle('fill',offx+320-18,8,17,8)
     local amt=gems
     if editmode then
         amt=99
     end
-    love.graphics.print(amt,offx+320-9-fn:getWidth(amt)/2,4)
+    green(3)
+    love.graphics.print(amt,offx+320-9-fn:getWidth(amt)/2,8)
 
     purple(0)
     line(offx+320,16,offx+320-19,16)

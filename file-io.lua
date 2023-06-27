@@ -46,10 +46,6 @@ function save_level(filename)
 end
 
 function load_level(filename,ingame)
-    if not love.filesystem.exists(filename) then
-        return
-    end
-    
     if cur_level then
         cache_level(cur_level)
     end
@@ -60,9 +56,12 @@ function load_level(filename,ingame)
         uncache_level(filename)
         return_idea=true
     else
+        if not love.filesystem.exists(filename) then
+        newtiles={}; tiles={}; sprites={}; water_tiles={}; bg_tiles={}
+        else
         loadstring(love.filesystem.read(filename))()
         if filename=='LEVEL4.LVL' then
-            end_t=love.timer.getTime()/100
+            end_t=t--love.timer.getTime()/100
         end
         if filename~='PIADRANE.LVL' and ingame then
             local toadd={}
@@ -83,6 +82,7 @@ function load_level(filename,ingame)
                 table.insert(sprites,1,v)
                 end
             end
+        end
         end
         test_co=nil
         wf_coroutine=nil

@@ -157,7 +157,7 @@ function draw_sprites()
         for i,s in ipairs(sprites) do
             if not s.visible then
             spriteloaded=false
-            if t%2==0 then s.visible=true end
+            if t%2==0 or switch[6] then s.visible=true end
             break
             end
             local s_quad
@@ -184,7 +184,9 @@ function draw_sprites()
             if s.id==21 then
                 local status
                 if switch[s.color] then status='_on' else status='_off' end
-                s_quad=_G['sw_'..tostring(s.color)..status]
+                local color=s.color
+                if color>4 then color=5 end
+                s_quad=_G['sw_'..tostring(color)..status]
             end
             if s.id~=17 then love.graphics.draw(sprsheet,s_quad,s.x,s.y,s.flip)
             else 
@@ -194,7 +196,7 @@ function draw_sprites()
                     s_quad=dn_quad1
                     if math.abs(s.dx)>0.08 then s_quad=_G['dn_quad'..tostring(math.floor(t*0.2%4+1))] end
                     
-                    if not s.dummy then
+                    if not s.dummy and not switch[5] then
                     local unread=unread_ideas()
                     for i=1,unread do
                     if unread==#idea_order and t%24<12 then
@@ -210,7 +212,7 @@ function draw_sprites()
                     lg.draw(dinosheet,s_quad,s.x-2,s.y-4,flip) 
                     end
                     
-                    if (drill and s.drill_tile and (press('lctrl') or press('rctrl')) and t%24<12) then
+                    if (drill and s.drill_tile and ((not switch[7] and (press('lctrl') or press('rctrl'))) or (switch[7] and press('x'))) and t%24<12) then
                     if s.tgt_tile and s.tgt_tile.id>=1 and s.tgt_tile.id<=12 and (s.tgt_tile.id-1)%3==1 then
                     lg.draw(sprsheet,dr_quad,s.drill_tile[1],s.drill_tile[2])
                     else
@@ -286,7 +288,11 @@ function tile_render(tile)
     end
 
     lg.setCanvas(tile.canvas)
-    coroutine.resume(tile.co)
+    if switch[6] then
+        for i=1,4 do coroutine.resume(tile.co) end
+    else
+        coroutine.resume(tile.co)
+    end
     lg.setCanvas()
     fg(1,1,1)
     
@@ -450,7 +456,7 @@ function spec_draw()
             tx=tx+fn:getWidth(char)
         end
         purple(3)
-        msg='Time taken: '..string.format('%.2d:%.2d',math.floor((end_t-start_t)/60),math.floor(end_t-start_t)%60)
+        msg='Time taken: '..string.format('%.2d:%.2d',math.floor((end_t-start_t)/60/60),math.floor((end_t-start_t)/60)%60)
         love.graphics.print(msg,320/2-8-fn:getWidth(msg)/2+1,32+24+42)
         msg='Gems collected: '..string.format('%d',total_gems)
         love.graphics.print(msg,320/2-8-fn:getWidth(msg)/2+1,32+24+42+8)
@@ -479,6 +485,51 @@ function spec_draw()
             love.graphics.print(msg,320/2-fn:getWidth(msg)/2+1,32+24+42+8+8+8+8)
             break
         end
+    end
+    if cur_level=='OPTIONS.LVL' then
+        purple(3)
+        for i,s in ipairs(sprites) do
+            if AABB(s.x,s.y,16,16,sprites[#sprites].x,sprites[#sprites].y,sprites[#sprites].w,sprites[#sprites].h) then
+            local msg
+            if s.id==21 and s.color==5 then
+                local status='ON'
+                if not switch[s.color] then status='OFF' end
+                msg='Speedrun mode '..status
+                love.graphics.print(msg,320/2-8-fn:getWidth(msg)/2+1,8)
+                if switch[s.color] then msg='Timer enabled, ideas disabled.'
+                else msg='Ideas enabled, timer disabled.' end
+                love.graphics.print(msg,320/2-8-fn:getWidth(msg)/2+1,8+16)
+            end
+            if s.id==21 and s.color==6 then
+                local status='FAST'
+                if not switch[s.color] then status='SLOW' end
+                msg='Anim speed '..status
+                love.graphics.print(msg,320/2-8-fn:getWidth(msg)/2+1,8)
+                if switch[s.color] then msg='For busy people.'
+                else msg='For artistic people.' end
+                love.graphics.print(msg,320/2-8-fn:getWidth(msg)/2+1,8+16)
+            end
+            if s.id==21 and s.color==7 then
+                local status='MODERN'
+                if not switch[s.color] then status='CLASSIC' end
+                msg='Control scheme '..status
+                love.graphics.print(msg,320/2-8-fn:getWidth(msg)/2+1,8)
+                if switch[s.color] then msg='Z to jump/fly, X to drill.'
+                else msg='Alt to jump/fly, Ctrl to drill.' end
+                love.graphics.print(msg,320/2-8-fn:getWidth(msg)/2+1,8+16)
+            end
+            break
+            end
+        end
+    end
+    if switch[5] then
+        local elapsed
+        if not start_t then elapsed=0 
+        elseif not end_t then elapsed=t-start_t
+        elseif start_t and end_t then elapsed=end_t-start_t end
+        purple(3)
+        local msg=string.format('%.2d:%.2d',math.floor(elapsed/60/60),math.floor(elapsed/60)%60)
+        love.graphics.print(msg,320-fn:getWidth(msg),0)
     end
     --[[if idea_db['walk'].canvas then
         love.graphics.draw(idea_db['walk'].canvas,320/2,200/2)

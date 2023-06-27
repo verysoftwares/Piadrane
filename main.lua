@@ -20,7 +20,7 @@ function love.keypressed(key)
             playmusic(cur_level)
         end
     end
-    if key=='f1' and #idea_order>0 then
+    if key=='f1' and #idea_order>0 and switch[5] then
         if love.update==mainupdate then
             love.update=ideascreen
             love.draw=ideadraw
@@ -50,8 +50,9 @@ function love.keypressed(key)
             if key=='y' or key=='n' or key=='up' or key=='down' or key=='left' or key=='right' then YNplr.immune=YNtgt; love.update=mainupdate end
         end
         if key=='y' then
+            if YNtgt=='LEVEL0.LVL' then start_t=t end
             if YNtgt=='QUIT.LVL' then love.event.quit(); return end
-            if YNtgt=='OPTIONS.LVL' then YNmsg='Too bad, because there aren\'t any!'; return end 
+            --if YNtgt=='OPTIONS.LVL' then YNmsg='Too bad, because there aren\'t any!'; return end 
             YNplr.immune=YNtgt
             load_level(YNtgt,true) 
             love.update=mainupdate

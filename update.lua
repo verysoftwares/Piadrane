@@ -60,8 +60,8 @@ function mainupdate()
             local plr=sp
 
             if not plr.exited then
-            if press('left') and not (drill and (press('lctrl') or press('rctrl'))) then if plr.dx>0 then plr.dx=0 end; plr.dx=plr.dx-0.3 end
-            if press('right') and not (drill and (press('lctrl') or press('rctrl'))) then if plr.dx<0 then plr.dx=0 end; plr.dx=plr.dx+0.3 end
+            if press('left') and not (drill and ((not switch[7] and (press('lctrl') or press('rctrl'))) or (switch[7] and press('x')))) then if plr.dx>0 then plr.dx=0 end; plr.dx=plr.dx-0.3 end
+            if press('right') and not (drill and ((not switch[7] and (press('lctrl') or press('rctrl'))) or (switch[7] and press('x')))) then if plr.dx<0 then plr.dx=0 end; plr.dx=plr.dx+0.3 end
 
             if not water_coll(plr) then
                 move_x(plr)
@@ -140,7 +140,7 @@ end
 
 function move_y(plr)
     plr.y=plr.y+plr.dy
-    if not (jetpack and ((press('lalt') or press('ralt')) and press('down'))) and not (drill and (press('lctrl') or press('rctrl'))) then
+    if not (jetpack and ((press('lalt') or press('ralt')) and press('down'))) and not (drill and ((not switch[7] and (press('lctrl') or press('rctrl'))) or (switch[7] and press('x')))) then
     plr.dy=plr.dy+0.2
     end
     plr.onground=false
@@ -187,7 +187,7 @@ end
 
 function fly(plr)
     jetpack_consume=false
-    if press('lalt') or press('ralt') then
+    if ((not switch[7] and (press('lalt') or press('ralt'))) or (switch[7] and press('z'))) then
         if fuel>0 then
             if press('down') then 
                 plr.dy=plr.dy*0.4 
@@ -204,7 +204,7 @@ end
 
 function use_drill(plr)
     drill_consume=false
-    if (press('lctrl') or press('rctrl')) and fuel>0 then
+    if ((not switch[7] and (press('lctrl') or press('rctrl'))) or (switch[7] and press('x'))) and fuel>0 then
         --plr.dy=plr.dy*0.4
         if not plr.drill_hold then plr.drill_hold={(plr.x+6)-(plr.x+6)%16+2,(plr.y+6)-(plr.y+6)%16+4} end
         plr.y=plr.y+((plr.drill_hold[2])-plr.y)*0.4
@@ -401,7 +401,7 @@ function YNmodal()
 end
 
 function jump(plr)
-    if (press('lalt') or press('ralt')) and plr.onground then
+    if ((not switch[7] and (press('lalt') or press('ralt'))) or (switch[7] and press('z'))) and plr.onground then
         plr.dy=plr.dy-3
     end
 end

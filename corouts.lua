@@ -12,12 +12,12 @@ function co_water(x,y)
         for p=0,16,2 do
             blue(i+1)
             love.graphics.point(p,(i+1)*2-1)
-            if p%4==0 then coroutine.yield() end
+            if ((not switch[6]) and p%4==0) then coroutine.yield() end
         end
         for p=1,16,2 do
             blue(i+1)
             love.graphics.point(p,(i+1)*2+1)
-            if p%4==1 then coroutine.yield() end
+            if ((not switch[6]) and p%4==1) then coroutine.yield() end
         end
     end
     coroutine.yield()
@@ -191,8 +191,11 @@ function tile_refresh()
         end)
     end
     
-    if t%3==0 then
+    if ((not switch[6]) and t%3==0) then
     coroutine.resume(test_co)
+    end
+    if switch[6] then
+        for i=1,3 do coroutine.resume(test_co) end
     end
 
     local stopped=true
@@ -219,7 +222,7 @@ function water_refresh()
     end
     end)
     end
-    if t%3==0 then wf_succ=coroutine.resume(wf_coroutine) end
+    if ((not switch[6]) and t%3==0) or switch[6] then wf_succ=coroutine.resume(wf_coroutine) end
     --[[love.graphics.setCanvas()
     if not wf_succ then
     love.graphics.setCanvas(wf_canvas)
