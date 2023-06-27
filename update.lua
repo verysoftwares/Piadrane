@@ -53,6 +53,8 @@ function mainupdate()
     if sel and --[[not AABB(320-19,17,19,200-16-17+1,mox,moy,1,1)]] mox<320-20 then mox,moy=mox-mox%16,moy-moy%16 end
 
     if spriteloaded and not editmode then
+        local enter=tapped('return')
+        local up=tapped('up')
         for i,sp in ipairs(sprites) do if sp.id==17 and not sp.dead then
             local plr=sp
 
@@ -75,7 +77,7 @@ function mainupdate()
             end
             end
 
-            sprite_coll(plr)
+            sprite_coll(plr,enter,up)
         end end
     end
     if tapped('p') then
@@ -255,9 +257,7 @@ function water_coll(plr)
     return false
 end
 
-function sprite_coll(plr)
-    local enter=tapped('return')
-    local up=tapped('up')
+function sprite_coll(plr,enter,up)
     for i=#sprites,1,-1 do
         local s=sprites[i]
         if s.id==14 and AABB(s.x+3,s.y+3,16-6,16-6,plr.x,plr.y,plr.w,plr.h) then
