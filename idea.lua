@@ -108,6 +108,7 @@ idea_db={
     ['jump']={msg='The Alt key makes me all jumpy!'},
     ['waterfall']={msg='I can swim up waterfalls with the Up key! Or travel really fast down, like nyyooomm'},
     ['exit']={msg='That\'s a level exit! These will take me to new and interesting places.'},
+    ['noexit']={msg='This exit goes nowhere.'},
     ['backdoor']={msg='I can use this flipped exit to backtrack to the previous level, by pressing Enter on top of it.'},
     ['return']={msg='So if I return to a previous level, I will continue from where I left off.'},
     ['toohigh']={msg='Hmm, this wall is too high to jump over. There\'s gotta be another way...'},
