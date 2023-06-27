@@ -12,6 +12,7 @@ function mainupdate()
         load_state()
     end
     new_idea('walk')
+    if switchfar_tile then new_idea('switchfar') end
     if multiexit then new_idea('multiexit') end
     if cur_level=='LEVEL3.LVL' then new_idea('drillwant') end
     if not find(idea_order,'flames') then
@@ -38,7 +39,7 @@ function mainupdate()
         if cur_level~='LEVEL5.LVL' then
         for k,tile in pairs(tiles) do
             if tile.id>=1 and tile.id<=12 and (tile.id-1)%3==0 and not switch[math.floor((tile.id-1)/3)+1] then
-            new_idea('switchfar')
+            switchfar_tile=tile
             break
             end
         end
@@ -264,24 +265,27 @@ end
 function sprite_coll(plr,enter,down)
     for i=#sprites,1,-1 do
         local s=sprites[i]
-        if s.id==14 and AABB(s.x+3,s.y+3,16-6,16-6,plr.x,plr.y,plr.w,plr.h) then
+        if s.id==14 and switch[1] and AABB(s.x+3,s.y+3,16-6,16-6,plr.x,plr.y,plr.w,plr.h) then
             new_idea('gem')
             gems=gems+1
+            if cur_level~='LEVEL4.LVL' then
+            total_gems=total_gems+1
+            end
             table.remove(sprites,i)
         end
-        if s.id==18 and AABB(s.x,s.y,16,16,plr.x,plr.y,plr.w,plr.h) and s.flip then
+        if s.id==18 and switch[2] and AABB(s.x,s.y,16,16,plr.x,plr.y,plr.w,plr.h) and s.flip then
             backdoor_idea=true
         end
-        if s.id==18 and AABB(plr.x-2-8,plr.y-4-8,16*2,16*2,s.x+8,s.y+8,1,1) then
+        if s.id==18 and switch[2] and AABB(plr.x-2-8,plr.y-4-8,16*2,16*2,s.x+8,s.y+8,1,1) then
             new_idea('exit') 
         end
-        if s.id==18 and not s.tgt and AABB(s.x,s.y,16,16,plr.x,plr.y,plr.w,plr.h) then
+        if s.id==18 and switch[2] and not s.tgt and AABB(s.x,s.y,16,16,plr.x,plr.y,plr.w,plr.h) then
             new_idea('noexit')
         end
-        if s.id==18 and (not s.flip or (s.flip and enter)) and AABB(s.x,s.y,16,16,plr.x,plr.y,plr.w,plr.h) and not plr.onground then
-            new_idea('gndexit')
-        end
-        if s.id==18 and (not s.flip or (s.flip and enter)) and s.tgt and (plr.immune~=s.tgt or enter) and plr.onground and AABB(s.x,s.y,16,16,plr.x,plr.y,plr.w,plr.h) then
+        --if s.id==18 and (not s.flip or (s.flip and enter)) and AABB(s.x,s.y,16,16,plr.x,plr.y,plr.w,plr.h) and not plr.onground then
+        --    new_idea('gndexit')
+        --end
+        if s.id==18 and switch[2] and (not s.flip or (s.flip and enter)) and s.tgt and (plr.immune~=s.tgt or enter) --[[and plr.onground]] and AABB(s.x,s.y,16,16,plr.x,plr.y,plr.w,plr.h) then
             for i2,s2 in ipairs(sprites) do
                 if s2.id==17 and s2~=plr and not s2.exited and (not s2.dead or (s2.dead and t-s2.dead<30)) then
                     multiexit=true
@@ -325,12 +329,12 @@ function sprite_coll(plr,enter,down)
             end
             return
         end
-        if s.id==20 then
+        if s.id==20 and switch[2] then
             if AABB(plr.x,plr.y,plr.w,plr.h,s.x,s.y+10,16,6) then
                 die(plr)
             end
         end
-        if s.id==15 then
+        if s.id==15 and switch[1] then
             if AABB(s.x,s.y,16,16,plr.x,plr.y,plr.w,plr.h) then
                 table.remove(sprites,i)
                 jetpack=true
@@ -339,7 +343,7 @@ function sprite_coll(plr,enter,down)
                 if fuel>1 then fuel=1 end
             end
         end
-        if s.id==16 then
+        if s.id==16 and switch[4] then
             if AABB(s.x,s.y,16,16,plr.x,plr.y,plr.w,plr.h) then
                 table.remove(sprites,i)
                 drill=true
@@ -348,7 +352,7 @@ function sprite_coll(plr,enter,down)
                 if fuel>1 then fuel=1 end
             end
         end
-        if s.id==19 then
+        if s.id==19 and switch[2] then
             if AABB(s.x,s.y,16,16,plr.x,plr.y,plr.w,plr.h) then
                 table.remove(sprites,i)
                 new_idea('fuel')

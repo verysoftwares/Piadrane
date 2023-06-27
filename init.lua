@@ -1,5 +1,6 @@
 t=0
 gems=0
+total_gems=0
 
 tiles={}
 bg_tiles={}

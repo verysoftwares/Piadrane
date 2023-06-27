@@ -163,15 +163,23 @@ function draw_sprites()
             local s_quad
             if s.id==14 then
             --s_quad=_G['gem_quad'..tostring(math.floor(t*0.2%4)+1)]
-            if (t*0.2)%12<8 then s_quad=gem_quad1
-            else s_quad=_G['gem_quad'..tostring(math.floor((t*0.2)%12)-8+1)] end
+            if switch[1] then
+                if (t*0.2)%12<8 then s_quad=gem_quad1
+                else s_quad=_G['gem_quad'..tostring(math.floor((t*0.2)%12)-8+1)] end
+            else
+                s_quad=tile_1_off
             end
-            if s.id==15 then s_quad=jp_quad end
-            if s.id==16 then s_quad=dr_quad end
-            if s.id==18 then s_quad=ex_quad end
-            if s.id==19 then s_quad=fu_quad end
+            end
+            if s.id==15 then if switch[1] then s_quad=jp_quad else s_quad=tile_1_off end end
+            if s.id==16 then if switch[4] then s_quad=dr_quad else s_quad=tile_4_off end end
+            if s.id==18 then if switch[2] then s_quad=ex_quad else s_quad=tile_2_off end end
+            if s.id==19 then if switch[2] then s_quad=fu_quad else s_quad=tile_2_off end end
             if s.id==20 then 
+                if switch[2] then
                 s_quad=_G['fi_quad'..tostring(math.floor((t*0.2)%2)+1)] 
+                else
+                s_quad=tile_2_off
+                end
             end
             if s.id==21 then
                 local status
@@ -442,9 +450,16 @@ function spec_draw()
             tx=tx+fn:getWidth(char)
         end
         purple(3)
-        msg='Time taken:'
+        msg='Time taken: '..string.format('%.2d:%.2d',math.floor((end_t-start_t)/60),math.floor(end_t-start_t)%60)
         love.graphics.print(msg,320/2-8-fn:getWidth(msg)/2+1,32+24+42)
-        msg=string.format('%.2d:%.2d',math.floor((end_t-start_t)/60),math.floor(end_t-start_t)%60)
+        -- possible to obtain:
+        -- 2 in title screen
+        -- 3 in LEVEL0.LVL
+        -- 3 in LEVEL1.LVL
+        -- 1 in LEVEL2.LVL
+        -- 2 in LEVEL3.LVL
+        -- 1 in LEVEL5.LVL
+        msg='Gems collected: '..string.format('%d/12',total_gems)
         love.graphics.print(msg,320/2-8-fn:getWidth(msg)/2+1,32+24+42+8)
         msg='This was version 1D'
         love.graphics.print(msg,320/2-8-fn:getWidth(msg)/2+1,32+24+42+24+8)

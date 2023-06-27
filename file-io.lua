@@ -168,6 +168,7 @@ function save_state()
     state.cur_level=cur_level
     state.fuel=fuel
     state.gems=gems
+    state.total_gems=total_gems
 end
 
 function load_state()
@@ -181,6 +182,7 @@ function load_state()
     playmusic(cur_level)
     fuel=state.fuel
     gems=state.gems
+    total_gems=state.total_gems
     newtiles={}
     water_tiles={}
     test_co=nil

@@ -16,10 +16,12 @@ function new_idea(name)
 
     local screen=love.graphics.getCanvas()
     love.graphics.setCanvas(idea_db[name].canvas)
-    if name~='flames' and name~='undo' then
+    if name~='flames' and name~='undo' and name~='switchfar' then
         love.graphics.draw(screen,-sprites[#sprites].x+16+2,-sprites[#sprites].y+16+4) 
     elseif name=='undo' then
         love.graphics.draw(screen,-mox+16,-moy+16) 
+    elseif name=='switchfar' then
+        love.graphics.draw(screen,-switchfar_tile.x+16,-switchfar_tile.y+16) 
     elseif name=='flames' then
         for i,s in ipairs(sprites) do
         if s.id==17 and s.dummy and s.dead then
