@@ -7,9 +7,11 @@ end
 function mainupdate()
     general_update()
 
+    if zhold and not press('z') then zhold=false end    
     if spriteloaded then
     if (press('lctrl') or press('rctrl')) and tapped('z') then
         load_state()
+        zhold=true
     end
     new_idea('walk')
     if switchfar_tile then new_idea('switchfar') end
@@ -187,7 +189,7 @@ end
 
 function fly(plr)
     jetpack_consume=false
-    if ((not switch[7] and (press('lalt') or press('ralt'))) or (switch[7] and press('z'))) then
+    if ((not switch[7] and (press('lalt') or press('ralt'))) or (switch[7] and press('z') and not zhold)) then
         if fuel>0 then
             if press('down') then 
                 plr.dy=plr.dy*0.4 
@@ -288,6 +290,9 @@ function sprite_coll(plr,enter,down)
         if s.id==18 and switch[2] and (not s.flip or (s.flip and (enter or plr.exited))) and s.tgt and (plr.immune~=s.tgt or enter) --[[and plr.onground]] and AABB(s.x,s.y,16,16,plr.x,plr.y,plr.w,plr.h) then
             for i2,s2 in ipairs(sprites) do
                 if s2.id==17 and s2~=plr and not s2.exited and (not s2.dead or (s2.dead and t-s2.dead<30)) then
+                    if not plr.exited then
+                        save_state()
+                    end
                     multiexit=true
                     plr.exited=true
                     plr.x=s.x+2; plr.y=s.y+4
@@ -401,7 +406,7 @@ function YNmodal()
 end
 
 function jump(plr)
-    if ((not switch[7] and (press('lalt') or press('ralt'))) or (switch[7] and press('z'))) and plr.onground then
+    if ((not switch[7] and (press('lalt') or press('ralt'))) or (switch[7] and press('z') and not zhold)) and plr.onground then
         plr.dy=plr.dy-3
     end
 end
