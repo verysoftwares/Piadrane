@@ -81,7 +81,7 @@ function edit()
                     sprites[#sprites].dx=0
                     sprites[#sprites].dy=0
                     for i2,s2 in ipairs(sprites) do
-                        if s2.id==17 and s2~=sprites[#sprites] then
+                        if s2.id==17 and i2~=#sprites then
                             sprites[#sprites].dummy=true
                             break
                         end
