@@ -124,5 +124,5 @@ idea_db={
     ['fuel']={msg='That\'s a fuel cell, replenishing half of the fuel meter. I should keep track of fuel cell locations so I can pick them up when I need them.'},
     ['switch']={msg='I wonder what happens if I flip this switch with the Down key. I\'m not the sort of dino to leave a switch un-flipped!'},
     ['switchfar']={msg='Ooh, so switches even affect tiles outside of their level.'},
-    ['multiexit']={msg='All dinos must exit a level together. That\'s part of the Dino Code.'},
+    ['multiexit']={msg='All dinos must exit a level together. That\'s part of the Dino Code. (Or I can Ctrl+Z to get out of this waiting state.)'},
 }
