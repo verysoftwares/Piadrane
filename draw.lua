@@ -452,14 +452,7 @@ function spec_draw()
         purple(3)
         msg='Time taken: '..string.format('%.2d:%.2d',math.floor((end_t-start_t)/60),math.floor(end_t-start_t)%60)
         love.graphics.print(msg,320/2-8-fn:getWidth(msg)/2+1,32+24+42)
-        -- possible to obtain:
-        -- 2 in title screen
-        -- 3 in LEVEL0.LVL
-        -- 3 in LEVEL1.LVL
-        -- 1 in LEVEL2.LVL
-        -- 2 in LEVEL3.LVL
-        -- 1 in LEVEL5.LVL
-        msg='Gems collected: '..string.format('%d/12',total_gems)
+        msg='Gems collected: '..string.format('%d',total_gems)
         love.graphics.print(msg,320/2-8-fn:getWidth(msg)/2+1,32+24+42+8)
         msg='This was version 1D'
         love.graphics.print(msg,320/2-8-fn:getWidth(msg)/2+1,32+24+42+24+8)
