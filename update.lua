@@ -289,12 +289,12 @@ function sprite_coll(plr,enter,down)
         --end
         if s.id==18 and switch[2] and (not s.flip or (s.flip and (enter or plr.exited))) and s.tgt and (plr.immune~=s.tgt or enter) --[[and plr.onground]] and AABB(s.x,s.y,16,16,plr.x,plr.y,plr.w,plr.h) then
             for i2,s2 in ipairs(sprites) do
-                if s2.id==17 and s2~=plr and not s2.exited and (not s2.dead or (s2.dead and t-s2.dead<30)) then
+                if s2.id==17 and s2~=plr and s2.exited~=s and (not s2.dead or (s2.dead and t-s2.dead<30)) then
                     if not plr.exited then
                         save_state()
                     end
                     multiexit=true
-                    plr.exited=true
+                    plr.exited=s
                     plr.x=s.x+2; plr.y=s.y+4
                     return
                 end
