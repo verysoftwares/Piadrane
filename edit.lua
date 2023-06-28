@@ -34,7 +34,7 @@ function edit()
                 table.remove(sprites,found) 
                 end
             end
-        elseif sel>=1 and sel<=12 and (not tiles[posstr(mox/16,moy/16)]) then
+        elseif sel>=1 and sel<=12 and (not tiles[posstr(mox/16,moy/16)]) and not AABB(sprites[#sprites].x,sprites[#sprites].y,sprites[#sprites].w,sprites[#sprites].h,mox,moy,16,16) then
             if not editmode then save_state(); gems=gems-1; new_idea('undo') end
 
             local color
