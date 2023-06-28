@@ -172,7 +172,14 @@ function draw_sprites()
             end
             if s.id==15 then if switch[1] then s_quad=jp_quad else s_quad=tile_1_off end end
             if s.id==16 then if switch[4] then s_quad=dr_quad else s_quad=tile_4_off end end
-            if s.id==18 then if switch[2] then s_quad=ex_quad else s_quad=tile_2_off end end
+            if s.id==18 then if switch[2] then 
+                s_quad=ex_quad
+                if s.tgt=='OPTIONS.LVL' then s_quad=ex_quad2 end
+                if s.tgt=='CREDITS.LVL' then s_quad=ex_quad3 end
+                if s.tgt=='QUIT.LVL' then s_quad=ex_quad4 end
+            else 
+                s_quad=tile_2_off 
+            end end
             if s.id==19 then if switch[2] then s_quad=fu_quad else s_quad=tile_2_off end end
             if s.id==20 then 
                 if switch[2] then
