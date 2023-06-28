@@ -71,6 +71,7 @@ function ideadraw()
     for w in cur_idea.msg:gmatch('%S+') do table.insert(words,w) end
     cur_idea.wordi=cur_idea.wordi or 1
     cur_idea.wordt=cur_idea.wordt or t
+    if press('return') then cur_idea.wordi=#words+1; cur_idea.wordt=t-8; cur_idea.read=true end
     local tx,ty=0,0
     for i=1,math.min(cur_idea.wordi,#words) do
         if i==cur_idea.wordi and cur_idea.wordi<=#words then
