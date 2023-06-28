@@ -304,7 +304,7 @@ function sprite_coll(plr,enter,down)
 
             if multiexit then
                 for i2,s2 in ipairs(sprites) do
-                    if s2.id==17 then s2.exited=false end
+                    if s2.id==17 then s2.exited=nil end
                 end
             end
 
