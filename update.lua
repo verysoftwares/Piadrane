@@ -58,6 +58,7 @@ function mainupdate()
     if spriteloaded and not editmode then
         local enter=tapped('return')
         local down=tapped('down')
+        local up=tapped('up')
         for i,sp in ipairs(sprites) do if sp.id==17 and not sp.dead then
             local plr=sp
 
@@ -80,7 +81,7 @@ function mainupdate()
             end
             end
 
-            sprite_coll(plr,enter,down)
+            sprite_coll(plr,enter,down,up)
         end end
     end
     if tapped('p') then
@@ -264,7 +265,7 @@ function water_coll(plr)
     return false
 end
 
-function sprite_coll(plr,enter,down)
+function sprite_coll(plr,enter,down,up)
     for i=#sprites,1,-1 do
         local s=sprites[i]
         if s.id==14 and switch[1] and AABB(s.x+3,s.y+3,16-6,16-6,plr.x,plr.y,plr.w,plr.h) then
@@ -281,13 +282,13 @@ function sprite_coll(plr,enter,down)
         if s.id==18 and switch[2] and AABB(plr.x-2-8,plr.y-4-8,16*2,16*2,s.x+8,s.y+8,1,1) then
             new_idea('exit') 
         end
-        if s.id==18 and switch[2] and not s.tgt and AABB(s.x,s.y,16,16,plr.x,plr.y,plr.w,plr.h) then
+        if s.id==18 and switch[2] and not s.tgt and (enter or up) and AABB(s.x,s.y,16,16,plr.x,plr.y,plr.w,plr.h) then
             new_idea('noexit')
         end
         --if s.id==18 and (not s.flip or (s.flip and (enter or plr.exited))) and AABB(s.x,s.y,16,16,plr.x,plr.y,plr.w,plr.h) and not plr.onground then
         --    new_idea('gndexit')
         --end
-        if s.id==18 and switch[2] and (not s.flip or (s.flip and (enter or plr.exited))) and s.tgt and (plr.immune~=s.tgt or enter) --[[and plr.onground]] and AABB(s.x,s.y,16,16,plr.x,plr.y,plr.w,plr.h) then
+        if s.id==18 and switch[2] and (enter or up or plr.exited) and s.tgt --[[and plr.onground]] and AABB(s.x,s.y,16,16,plr.x,plr.y,plr.w,plr.h) then
             for i2,s2 in ipairs(sprites) do
                 if s2.id==17 and s2~=plr and s2.exited~=s and (not s2.dead or (s2.dead and t-s2.dead<30)) then
                     if not plr.exited then
@@ -300,7 +301,7 @@ function sprite_coll(plr,enter,down)
                 end
             end
 
-            plr.immune=s.tgt
+            --plr.immune=s.tgt
 
             if multiexit then
                 for i2,s2 in ipairs(sprites) do
@@ -368,14 +369,14 @@ function sprite_coll(plr,enter,down)
         if s.id==21 then
             if AABB(s.x,s.y,16,16,plr.x,plr.y,plr.w,plr.h) then
                 new_idea('switch')
-                if down then
+                if down or up then
                     switch[s.color]=not switch[s.color]
                 end
             end
         end
     end
 
-    if plr.immune then
+    --[[if plr.immune then
         local immune={}
         for i,s in ipairs(sprites) do
             if s.id==18 and s.tgt==plr.immune then
@@ -390,7 +391,7 @@ function sprite_coll(plr,enter,down)
             end
         end
         if not found then plr.immune=nil end
-    end
+    end]]
 end
 
 function die(plr)

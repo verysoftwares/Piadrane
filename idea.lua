@@ -106,13 +106,13 @@ function unread_ideas()
 end
 
 idea_db={
-    ['walk']={msg='This is me, Pia the dino! I can use the arrow keys to move around!'},
+    ['walk']={msg='This is me, Pia the dino! I can use the arrow keys to move around! Press F1 again to go back and try it out.'},
     ['jump']={msg='The Alt key makes me all jumpy!'},
     ['waterfall']={msg='I can swim up waterfalls with the Up key! Or travel really fast down, like nyyooomm'},
-    ['exit']={msg='That\'s a level exit! These will take me to new and interesting places.'},
+    ['exit']={msg='That\'s a level exit! These will take me to new and interesting places, when I just press Up or Enter on top of it.'},
     ['noexit']={msg='This exit goes nowhere.'},
     ['gndexit']={msg='I\'ve got to stand on solid ground to use an exit.'},
-    ['backdoor']={msg='I can use this flipped exit to backtrack to the previous level, by pressing Enter on top of it.'},
+    ['backdoor']={msg='I can use this flipped exit to backtrack to the previous level, by pressing Up or Enter on top of it.'},
     ['return']={msg='So if I return to a previous level, I will continue from where I left off.'},
     ['toohigh']={msg='Hmm, this wall is too high to jump over. There\'s gotta be another way...'},
     ['gem']={msg='I\'ve collected a gem! It is a magical artifact allowing me to place or remove tiles. But be careful, it\'s one-use only! Just use the mouse to select a tile from the sidebar and click anywhere to place it.'},
@@ -122,7 +122,7 @@ idea_db={
     ['drillwant']={msg='If only I had the drill, I would be able to remove these checkerboard tiles. But I can\'t reach it... What do I do now?'},
     ['drill']={msg='There we go, drill unlocked! Ctrl+arrows to use. It consumes fuel just like the jetpack.'},
     ['fuel']={msg='That\'s a fuel cell, replenishing half of the fuel meter. I should keep track of fuel cell locations so I can pick them up when I need them.'},
-    ['switch']={msg='I wonder what happens if I flip this switch with the Down key. I\'m not the sort of dino to leave a switch un-flipped!'},
+    ['switch']={msg='I wonder what happens if I flip this switch with the Down or Up key. I\'m not the sort of dino to leave a switch un-flipped!'},
     ['switchfar']={msg='Ooh, so switches even affect tiles outside of their level.'},
     ['multiexit']={msg='All dinos must exit a level together. That\'s part of the Dino Code. (Or I can Ctrl+Z to get out of this waiting state.)'},
 }
