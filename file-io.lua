@@ -169,6 +169,8 @@ function save_state()
     state.fuel=fuel
     state.gems=gems
     state.total_gems=total_gems
+    state.switch={}
+    for i,s in ipairs(switch) do state.switch[i]=s end
 end
 
 function load_state()
@@ -180,6 +182,7 @@ function load_state()
     sprites=state.sprites
     cur_level=state.cur_level
     playmusic(cur_level)
+    switch=state.switch
     fuel=state.fuel
     gems=state.gems
     total_gems=state.total_gems
