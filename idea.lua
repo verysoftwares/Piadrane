@@ -109,7 +109,7 @@ idea_db={
     ['walk']={msg='This is me, Pia the dino! I can use the arrow keys to move around! Press F1 again to go back and try it out.'},
     ['jump']={msg='The Alt key makes me all jumpy!'},
     ['waterfall']={msg='I can swim up waterfalls with the Up key! Or travel really fast down, like nyyooomm'},
-    ['exit']={msg='That\'s a level exit! These will take me to new and interesting places, when I just press Up or Enter on top of it.'},
+    ['exit']={msg='That\'s a level exit! These will take me to new and interesting places, when I just press Up or Enter on top of them.'},
     ['noexit']={msg='This exit goes nowhere.'},
     ['gndexit']={msg='I\'ve got to stand on solid ground to use an exit.'},
     ['backdoor']={msg='I can use this flipped exit to backtrack to the previous level, by pressing Up or Enter on top of it.'},
