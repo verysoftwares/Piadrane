@@ -34,7 +34,7 @@ function edit()
                 table.remove(sprites,found) 
                 end
             end
-        elseif sel>=1 and sel<=12 and (not tiles[posstr(mox/16,moy/16)]) and not AABB(sprites[#sprites].x,sprites[#sprites].y,sprites[#sprites].w,sprites[#sprites].h,mox,moy,16,16) then
+        elseif sel>=1 and sel<=12 and (not tiles[posstr(mox/16,moy/16)]) and not overlap_player() then
             if not editmode then save_state(); gems=gems-1; new_idea('undo') end
 
             local color
@@ -95,6 +95,15 @@ function edit()
         --tile_render(tile)
     end
     if not editmode and gems==0 then sel=nil end
+end
+
+function overlap_player()
+    for i,s in ipairs(sprites) do
+        if s.id==17 and AABB(s.x,s.y,s.w,s.h,mox,moy,16,16) then
+            return true
+        end
+    end
+    return false
 end
 
 function render_sidebar()
