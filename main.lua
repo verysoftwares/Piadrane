@@ -52,8 +52,9 @@ function love.keypressed(key)
         end
     end
     if love.update==YNmodal then
-        if YNmsg=='Too bad, because there aren\'t any!' then 
+        if YNmsg=='Too bad, because there aren\'t any!' or YNtgt=='SAVELOAD.LVL' then 
             if key=='y' or key=='n' or key=='up' or key=='down' or key=='left' or key=='right' then --[[YNplr.immune=YNtgt;]] love.update=mainupdate end
+            return 
         end
         if key=='y' then
             if YNtgt=='LEVEL0.LVL' then start_t=t end

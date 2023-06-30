@@ -129,6 +129,9 @@ function sprite_coll(plr,enter,down,up)
                 if YNtgt=='QUIT.LVL' then
                     YNmsg='Want to quit to DOS? Y/N'
                 end
+                if YNtgt=='SAVELOAD.LVL' then
+                    YNmsg='No save file detected.'
+                end
             else
             load_level(s.tgt,true)
             end

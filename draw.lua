@@ -177,6 +177,7 @@ function draw_sprites()
                 if s.tgt=='OPTIONS.LVL' then s_quad=ex_quad2 end
                 if s.tgt=='CREDITS.LVL' then s_quad=ex_quad3 end
                 if s.tgt=='QUIT.LVL' then s_quad=ex_quad4 end
+                if s.tgt=='SAVELOAD.LVL' then s_quad=ex_quad5 end
             else 
                 s_quad=tile_2_off 
             end end
