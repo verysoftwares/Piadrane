@@ -201,3 +201,29 @@ function unique_objs()
     return out
 end
 
+function clear_objs()
+    if not loaded or not right then return end
+
+    for k,tile in pairs(tiles) do
+        if AABB(mox,moy,1,1,tile.x,tile.y,16,16) then
+            tiles[posstr(tile.x/16,tile.y/16)]=nil
+            if tile.id>=1 and tile.id<=12 then
+            if tiles[posstr(tile.x/16+1,tile.y/16)] and tiles[posstr(tile.x/16+1,tile.y/16)].id==tile.id then co_tile(tile.x+16,tile.y,tiles[posstr(tile.x/16+1,tile.y/16)].color,tiles[posstr(tile.x/16+1,tile.y/16)].id) end
+            if tiles[posstr(tile.x/16-1,tile.y/16)] and tiles[posstr(tile.x/16-1,tile.y/16)].id==tile.id then co_tile(tile.x-16,tile.y,tiles[posstr(tile.x/16-1,tile.y/16)].color,tiles[posstr(tile.x/16-1,tile.y/16)].id) end
+            if tiles[posstr(tile.x/16,tile.y/16+1)] and tiles[posstr(tile.x/16,tile.y/16+1)].id==tile.id then co_tile(tile.x,tile.y+16,tiles[posstr(tile.x/16,tile.y/16+1)].color,tiles[posstr(tile.x/16,tile.y/16+1)].id) end
+            if tiles[posstr(tile.x/16,tile.y/16-1)] and tiles[posstr(tile.x/16,tile.y/16-1)].id==tile.id then co_tile(tile.x,tile.y-16,tiles[posstr(tile.x/16,tile.y/16-1)].color,tiles[posstr(tile.x/16,tile.y/16-1)].id) end
+            elseif tile.id==13 then
+                for i,w in ipairs(water_tiles) do
+                    if w.x==tile.x and w.y==tile.y then table.remove(water_tiles,i); break end
+                end
+            end
+            if not editmode then gems=gems-1 end
+        end
+    end
+    
+    local found=false
+    for i,s in ipairs(sprites) do
+        if (s.id~=17 and s.x==mox and s.y==moy) or (s.id==17 and s.x==mox+2 and s.y==moy+4) then found=i; break end
+    end
+    if found then table.remove(sprites,found); if not editmode then gems=gems-1 end end
+end

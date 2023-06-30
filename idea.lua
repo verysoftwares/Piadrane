@@ -106,6 +106,44 @@ function unread_ideas()
     return out
 end
 
+function idea_events()
+    new_idea('walk')
+    if switchfar_tile then new_idea('switchfar') end
+    if multiexit then new_idea('multiexit') end
+    if cur_level=='LEVEL3.LVL' then new_idea('drillwant') end
+    if not find(idea_order,'flames') then
+    for i,s in ipairs(sprites) do
+        if s.id==17 and s.dummy and s.dead then
+            new_idea('flames')
+            break
+        end
+    end
+    end
+    if waterfall_idea then new_idea('waterfall') end
+    if return_idea then new_idea('return') end
+    if not find(idea_order,'backdoor') then
+    if backdoor_idea then 
+        local plr=sprites[#sprites]
+        for i,s in ipairs(sprites) do
+            if s.id==18 and s.flip and not AABB(plr.x,plr.y,plr.w,plr.h,s.x,s.y,16,16) then
+            new_idea('backdoor')
+            break
+            end
+        end
+    end
+    end
+    if not find(idea_order,'switchfar') then
+        if cur_level~='LEVEL5.LVL' then
+        for k,tile in pairs(tiles) do
+            if tile.id>=1 and tile.id<=12 and (tile.id-1)%3==0 and not switch[math.floor((tile.id-1)/3)+1] then
+            switchfar_tile=tile
+            break
+            end
+        end
+        end
+    end
+end
+
 idea_db={
     ['walk']={msg='This is me, Pia the dino! I can use the arrow keys to move around! Press F1 again to go back and try it out.'},
     ['jump']={msg='The Alt key makes me all jumpy!'},
