@@ -1,5 +1,5 @@
 function drill_active()
-    return drill and (not switch[7] and (press('lctrl') or press('rctrl')) or (switch[7] and press('x')))
+    return drill and ((not switch[7] and (press('lctrl') or press('rctrl')) or (switch[7] and press('x'))))
 end
 
 function use_drill(plr)

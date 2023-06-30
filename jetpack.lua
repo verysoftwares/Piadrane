@@ -3,7 +3,7 @@ function jetpack_hover()
 end
 
 function jetpack_active()
-    return jetpack and (not switch[7] and (press('lalt') or press('ralt')) or (switch[7] and press('z') and not zhold))
+    return jetpack and ((not switch[7] and (press('lalt') or press('ralt')) or (switch[7] and press('z') and not zhold)))
 end
 
 function fly(plr)
