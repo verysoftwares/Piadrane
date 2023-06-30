@@ -539,6 +539,7 @@ function spec_draw()
         for i=1,#msg do
             local char=string.sub(msg,i,i)
             local offx=0
+            if char=='1' then offx=1 end
             if char==':' then offx=2 end
             love.graphics.print(char,320-#msg*6+offx+(i-1)*6,0)
         end
