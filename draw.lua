@@ -535,7 +535,7 @@ function spec_draw()
         elseif not end_t then elapsed=t-start_t
         elseif start_t and end_t then elapsed=end_t-start_t end
         purple(3)
-        local msg=string.format('%.2d:%.2d',math.floor(elapsed/60/60),math.floor(elapsed/60)%60)
+        local msg=string.format('%.2d:%.2d:%.2d',math.floor(elapsed/60/60),math.floor(elapsed/60)%60,math.floor((elapsed%60)*100/60))
         love.graphics.print(msg,320-fn:getWidth(msg),0)
     end
     --[[if idea_db['walk'].canvas then
