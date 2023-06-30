@@ -49,17 +49,17 @@ function love.keypressed(key)
     end
     if love.update==YNmodal then
         if YNmsg=='Too bad, because there aren\'t any!' then 
-            if key=='y' or key=='n' or key=='up' or key=='down' or key=='left' or key=='right' then YNplr.immune=YNtgt; love.update=mainupdate end
+            if key=='y' or key=='n' or key=='up' or key=='down' or key=='left' or key=='right' then --[[YNplr.immune=YNtgt;]] love.update=mainupdate end
         end
         if key=='y' then
             if YNtgt=='LEVEL0.LVL' then start_t=t end
             if YNtgt=='QUIT.LVL' then love.event.quit(); return end
             --if YNtgt=='OPTIONS.LVL' then YNmsg='Too bad, because there aren\'t any!'; return end 
-            YNplr.immune=YNtgt
+            --YNplr.immune=YNtgt
             load_level(YNtgt,true) 
             love.update=mainupdate
         end
-        if key=='n' then YNplr.immune=YNtgt; love.update=mainupdate end
+        if key=='n' then --[[YNplr.immune=YNtgt;]] love.update=mainupdate end
     end
 end
 
