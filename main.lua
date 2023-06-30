@@ -1,3 +1,5 @@
+DEBUG=true
+
 require 'alias'
 require 'utility'
 require 'init'
@@ -63,5 +65,3 @@ end
 
 love.update=mainupdate
 love.draw=maindraw
-
-DEBUG=false

@@ -79,5 +79,5 @@ drill_spd=0.04
 
 switch={}
 for i=1,4 do switch[i]=true end
-for i=5,7 do switch[i]=false end
+for i=5,7 do switch[i]=DEBUG end
 --switch[1]=false
