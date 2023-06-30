@@ -202,6 +202,7 @@ function draw_sprites()
                     if s.dx<0 then flip=true end
                     s_quad=dn_quad1
                     if math.abs(s.dx)>0.08 then s_quad=_G['dn_quad'..tostring(math.floor(t*0.2%4+1))] end
+                    if s.swimming then s_quad=_G['dn_quad_swim'..tostring(math.floor(t*0.2%4+1))] end
                     
                     if not s.dummy and not switch[5] then
                     local unread=unread_ideas()

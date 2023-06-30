@@ -38,6 +38,7 @@ function love.load()
     dinosolo=love.graphics.newImage('GFX/dinosolo.png')
     for i=1,4 do
     _G['dn_quad'..tostring(i)]=love.graphics.newQuad((i-1)*16,1*16,16,16)
+    _G['dn_quad_swim'..tostring(i)]=love.graphics.newQuad((i-1)*16,2*16,16,16)
     end
 
     for i=1,4 do

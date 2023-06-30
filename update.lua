@@ -25,6 +25,7 @@ function mainupdate()
         end
     end
     end
+    if waterfall_idea then new_idea('waterfall') end
     if return_idea then new_idea('return') end
     if not find(idea_order,'backdoor') then
     if backdoor_idea then 
@@ -66,6 +67,7 @@ function mainupdate()
             if press('left') and not (drill and ((not switch[7] and (press('lctrl') or press('rctrl'))) or (switch[7] and press('x')))) then if plr.dx>0 then plr.dx=0 end; plr.dx=plr.dx-0.3 end
             if press('right') and not (drill and ((not switch[7] and (press('lctrl') or press('rctrl'))) or (switch[7] and press('x')))) then if plr.dx<0 then plr.dx=0 end; plr.dx=plr.dx+0.3 end
 
+            plr.swimming=false
             if not water_coll(plr) then
                 move_x(plr)
                 move_y(plr)
@@ -256,9 +258,16 @@ end
 
 function water_coll(plr)
     for k,tile in pairs(tiles) do
+        if tile.id==13 and AABB(tile.x+4,tile.y+6,8,8,plr.x,plr.y,plr.w,plr.h) then
+            waterfall_idea=true
+            plr.swimming=true
+            break
+        end
+    end
+    for k,tile in pairs(tiles) do
         if tile.id==13 and AABB(tile.x,tile.y,16,16,plr.x,plr.y,plr.w,plr.h) then
             plr.dy=plr.dy+0.085
-            new_idea('waterfall')
+            --new_idea('waterfall')
             return true
         end
     end
