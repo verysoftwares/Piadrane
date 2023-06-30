@@ -468,9 +468,9 @@ function spec_draw()
         love.graphics.print(msg,320/2-8-fn:getWidth(msg)/2+1,32+24+42)
         msg='Gems collected: '..string.format('%d',total_gems)
         love.graphics.print(msg,320/2-8-fn:getWidth(msg)/2+1,32+24+42+8)
-        msg='This was version 1D'
+        msg='This was version 2A'
         love.graphics.print(msg,320/2-8-fn:getWidth(msg)/2+1,32+24+42+24+8)
-        msg='(first public playtest build).'
+        msg='(second public playtest build).'
         love.graphics.print(msg,320/2-8-fn:getWidth(msg)/2+1,32+24+42+24+8+8)
         msg='Stay tuned for more content'
         love.graphics.print(msg,320/2-8-fn:getWidth(msg)/2+1,32+24+42+24+8+24+8)
