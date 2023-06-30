@@ -32,8 +32,8 @@ function mainupdate()
             local plr=sp
 
             if not plr.exited then
-            if press('left') and not (drill and ((not switch[7] and (press('lctrl') or press('rctrl'))) or (switch[7] and press('x')))) then if plr.dx>0 then plr.dx=0 end; plr.dx=plr.dx-0.3 end
-            if press('right') and not (drill and ((not switch[7] and (press('lctrl') or press('rctrl'))) or (switch[7] and press('x')))) then if plr.dx<0 then plr.dx=0 end; plr.dx=plr.dx+0.3 end
+            if press('left') and not drill_active() then if plr.dx>0 then plr.dx=0 end; plr.dx=plr.dx-0.3 end
+            if press('right') and not drill_active() then if plr.dx<0 then plr.dx=0 end; plr.dx=plr.dx+0.3 end
 
             plr.swimming=false
             if not water_coll(plr) then

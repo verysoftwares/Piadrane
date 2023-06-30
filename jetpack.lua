@@ -1,5 +1,13 @@
+function jetpack_hover()
+    return jetpack and (press('lalt') or press('ralt')) and press('down')
+end
+
+function jetpack_active()
+    return jetpack and (not switch[7] and (press('lalt') or press('ralt')) or (switch[7] and press('z') and not zhold))
+end
+
 function fly(plr)
-    if ((not switch[7] and (press('lalt') or press('ralt'))) or (switch[7] and press('z') and not zhold)) then
+    if jetpack_active() then
         if fuel>0 then
             if press('down') then 
                 plr.dy=plr.dy*0.4 

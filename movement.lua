@@ -6,7 +6,7 @@ end
 
 function move_y(plr)
     plr.y=plr.y+plr.dy
-    if not (jetpack and ((press('lalt') or press('ralt')) and press('down'))) and not (drill and ((not switch[7] and (press('lctrl') or press('rctrl'))) or (switch[7] and press('x')))) then
+    if not jetpack_hover() and not drill_active() then
     plr.dy=plr.dy+0.2
     end
     plr.onground=false

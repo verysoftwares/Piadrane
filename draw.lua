@@ -220,7 +220,7 @@ function draw_sprites()
                     lg.draw(dinosheet,s_quad,s.x-2,s.y-4,flip) 
                     end
                     
-                    if (drill and s.drill_tile and ((not switch[7] and (press('lctrl') or press('rctrl'))) or (switch[7] and press('x'))) and t%24<12) then
+                    if drill_active() and s.drill_tile and t%24<12 then
                     if s.tgt_tile and s.tgt_tile.id>=1 and s.tgt_tile.id<=12 and (s.tgt_tile.id-1)%3==1 then
                     lg.draw(sprsheet,dr_quad,s.drill_tile[1],s.drill_tile[2])
                     else
