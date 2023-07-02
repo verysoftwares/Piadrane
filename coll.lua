@@ -2,7 +2,7 @@ function xcoll(plr)
     for i,dir in ipairs({-1,0,1}) do
         local below=tiles[posstr((plr.x-plr.x%16)/16+1,(plr.y-plr.y%16)/16+dir)]
         if below and below.id<13 and ((below.id-1)%3>0 or switch[math.floor((below.id-1)/3)+1]) and AABB(below.x,below.y,16,16,plr.x,plr.y,plr.w,plr.h) then
-            if cur_level=='LEVEL0.LVL' and below.x==11*16 and below.y==7*16 then
+            if cur_level=='LEVEL0.LVL' and below.x==10*16 and below.y==7*16 then
                 if not find(idea_order,'undo') then new_idea('toohigh') end
             end
             plr.x=below.x-plr.w
@@ -90,12 +90,12 @@ function sprite_coll(plr,enter,down,up)
         --end
         if s.id==18 and switch[2] and (enter or up or plr.exited) and s.tgt --[[and plr.onground]] and AABB(s.x,s.y,16,16,plr.x,plr.y,plr.w,plr.h) then
             for i2,s2 in ipairs(sprites) do
-                if s2.id==17 and s2~=plr and s2.exited~=s and (not s2.dead or (s2.dead and t-s2.dead<30)) then
+                if s2.id==17 and s2~=plr and s2.exited~=s.tgt and (not s2.dead or (s2.dead and t-s2.dead<30)) then
                     if not plr.exited then
                         save_state()
                     end
                     multiexit=true
-                    plr.exited=s
+                    plr.exited=s.tgt
                     plr.x=s.x+2; plr.y=s.y+4
                     return
                 end

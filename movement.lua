@@ -31,6 +31,6 @@ end
 
 function jump(plr)
     if jump_input() and plr.onground then
-        plr.dy=plr.dy-3
+        plr.dy=plr.dy-4
     end
 end
