@@ -158,6 +158,7 @@ idea_db={
     ['undo']={msg='I\'ve now placed my first tile! But if I don\'t like it, i can press Ctrl+Z to undo a tile placement.'},
     ['flames']={msg='Whoa, that other dino just fell into the flames below! I must be careful not to do the same, I want my pixels to stay intact.'},
     ['jetpack']={msg='I got the jetpack! Now I can fly with Alt. But I\'d better be mindful of the fuel meter at the bottom of the screen.'},
+    ['map']={msg='This is a map of the world! I can examine it with the M key anytime.'},
     ['drillwant']={msg='If only I had the drill, I would be able to remove these checkerboard tiles. But I can\'t reach it... What do I do now?'},
     ['drill']={msg='There we go, drill unlocked! Ctrl+arrows to use. It consumes fuel just like the jetpack.'},
     ['fuel']={msg='That\'s a fuel cell, replenishing half of the fuel meter. I should keep track of fuel cell locations so I can pick them up when I need them.'},

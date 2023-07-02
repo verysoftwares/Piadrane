@@ -182,9 +182,9 @@ function render_sidebar()
 end
 
 function unique_objs()
-    local out={[0]=true}
+    local out={}
     if editmode then
-        for i=1,21 do out[i]=true end
+        for i=0,22 do out[i]=true end
         return out
     end
 

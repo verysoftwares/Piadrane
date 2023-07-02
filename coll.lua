@@ -74,6 +74,7 @@ function sprite_coll(plr,enter,down,up)
             total_gems=total_gems+1
             end
             table.remove(sprites,i)
+            bg_tiles[posstr(s.x,s.y)]={x=s.x,y=s.y,id=s.id}
         end
         if s.id==18 and switch[2] and AABB(s.x,s.y,16,16,plr.x,plr.y,plr.w,plr.h) and s.flip then
             backdoor_idea=true
@@ -174,6 +175,13 @@ function sprite_coll(plr,enter,down,up)
                 if down or up then
                     switch[s.color]=not switch[s.color]
                 end
+            end
+        end
+        if s.id==22 then
+            if AABB(s.x,s.y,16,16,plr.x,plr.y,plr.w,plr.h) then
+                new_idea('map')
+                map=true
+                table.remove(sprites,i)
             end
         end
     end

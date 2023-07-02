@@ -1,4 +1,4 @@
-DEBUG=false
+DEBUG=true
 
 require 'alias'
 require 'utility'
@@ -11,6 +11,7 @@ require 'update'
 require 'draw'
 require 'corouts'
 require 'idea'
+require 'map'
 require 'jetpack'
 require 'drill'
 require 'music'
@@ -20,20 +21,33 @@ function love.keypressed(key)
     if key == "escape" then
         if love.update==mainupdate then
             love.event.quit()
-        elseif love.update==ideascreen then
+        elseif love.update~=mainupdate then
             love.update=mainupdate
             love.draw=maindraw
             playmusic(cur_level)
         end
     end
     if key=='f1' and #idea_order>0 and not switch[5] then
-        if love.update==mainupdate then
+        if love.update~=ideascreen then
             love.update=ideascreen
             love.draw=ideadraw
             -- skip to first unread
             for i,v in ipairs(idea_order) do if not idea_db[v].read then idea_order.i=i; break end end
             playmusic('NEWIDEA')
         elseif love.update==ideascreen then
+            love.update=mainupdate
+            love.draw=maindraw
+            playmusic(cur_level)
+        end
+    end
+    if key=='m' and map and pairslength(levels)>0 and levels[cur_level] then
+        if love.update~=mapscreen then
+            for k,lvl in pairs(levels) do lvl.canvas=nil end
+            cache_level(cur_level)
+            love.update=mapscreen
+            love.draw=mapdraw
+            playmusic('MAP')
+        elseif love.update==mapscreen then
             love.update=mainupdate
             love.draw=maindraw
             playmusic(cur_level)

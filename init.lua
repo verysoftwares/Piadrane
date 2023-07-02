@@ -27,6 +27,7 @@ function love.load()
     fi_quad2=love.graphics.newQuad(6*16,2*16,16,16)
     dr_quad2=love.graphics.newQuad(5*16,2*16,16,16)
     lb_quad=love.graphics.newQuad(5*16,3*16,16,16)
+    mp_quad=love.graphics.newQuad(4*16,5*16,16,16)
     for i=1,4 do
         _G['sw_'..tostring(i)..'_on']=love.graphics.newQuad((i-1)*32,4*16,16,16)
         _G['sw_'..tostring(i)..'_off']=love.graphics.newQuad(16+(i-1)*32,4*16,16,16)
@@ -45,6 +46,10 @@ function love.load()
     for i=1,4 do
     _G['gem_quad'..tostring(i)]=love.graphics.newQuad(4*16,(i-1)*16,16,16)
     end
+    gg_quad=love.graphics.newQuad(5*16,5*16,16,16)
+
+    ar_quad1=love.graphics.newQuad(6*16,5*16,16,16)
+    ar_quad2=love.graphics.newQuad(7*16,5*16,16,16)
 
     load_level('PIADRANE.LVL',true)
 end
@@ -78,6 +83,7 @@ fuel=0
 fuel_consume=0.00125
 --drill=true
 drill_spd=0.04
+--map=true
 
 switch={}
 for i=1,4 do switch[i]=true end

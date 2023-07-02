@@ -169,6 +169,9 @@ function save_state()
     state.fuel=fuel
     state.gems=gems
     state.total_gems=total_gems
+    state.jetpack=jetpack
+    state.drill=drill
+    state.map=map
     state.switch={}
     for i,s in ipairs(switch) do state.switch[i]=s end
 end
@@ -186,6 +189,9 @@ function load_state()
     fuel=state.fuel
     gems=state.gems
     total_gems=state.total_gems
+    jetpack=state.jetpack
+    drill=state.drill
+    map=state.map
     newtiles={}
     water_tiles={}
     test_co=nil

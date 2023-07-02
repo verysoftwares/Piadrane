@@ -14,6 +14,7 @@ function mainupdate()
             zhold=true
         end
         idea_events()
+        if not levels[cur_level] then cache_level(cur_level) end 
     end
 
     leftheld=left

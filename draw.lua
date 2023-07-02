@@ -39,13 +39,14 @@ function maindraw()
 end
 
 local temp_canvas=lg.newCanvas(16,16)
-function draw_id(id,ix,iy,trans)
+function draw_id(id,ix,iy,trans,tgt)
+    tgt=tgt or lg.getCanvas()
     lg.setCanvas(temp_canvas)
     if id==0 then
         --fg(0.95*255,0.95*255,0.95*255)
         fg(0.1*255,0.1*255,0.1*255)
         rect('fill',0,0,16,16)
-        lg.setCanvas()
+        lg.setCanvas(tgt)
         lg.draw(temp_canvas,ix,iy)
     end
     if id>=1 and id<=12 then
@@ -87,7 +88,7 @@ function draw_id(id,ix,iy,trans)
             end
         end
 
-        lg.setCanvas()
+        lg.setCanvas(tgt)
         lg.draw(temp_canvas,ix,iy)
     end
     if id==13 then
@@ -98,10 +99,10 @@ function draw_id(id,ix,iy,trans)
         end]]
         lg.draw(sprsheet,wf_quad,0,-16+math.floor(((t+12)*0.4))%16)
         lg.draw(sprsheet,wf_quad,0,0+math.floor(((t+12)*0.4))%16)
-        lg.setCanvas()
+        lg.setCanvas(tgt)
         lg.draw(temp_canvas,ix,iy)
     end
-    if (id>=14 and id<=16) or (id>=18 and id<=21) then
+    if (id>=14 and id<=16) or (id>=18 and id<=22) then
         if not trans then 
             --fg(0.95*255,0.95*255,0.95*255)
             fg(0.1*255,0.1*255,0.1*255)
@@ -116,6 +117,7 @@ function draw_id(id,ix,iy,trans)
         if id==16 then s_quad=dr_quad end
         if id==18 then s_quad=ex_quad end
         if id==19 then s_quad=fu_quad end
+        if id==22 then s_quad=mp_quad end
         if id==20 then 
             s_quad=_G['fi_quad'..tostring(math.floor((t*0.2)%2)+1)] 
         end
@@ -125,29 +127,29 @@ function draw_id(id,ix,iy,trans)
             s_quad=_G['sw_'..tostring(color)..status]
         end
         if trans then 
-            lg.setCanvas() 
+            lg.setCanvas(tgt) 
             love.graphics.draw(sprsheet,s_quad,ix,iy)
         end
         if not trans then 
             love.graphics.draw(sprsheet,s_quad,0,0)
-            lg.setCanvas()
+            lg.setCanvas(tgt)
             lg.draw(temp_canvas,ix,iy)
         end
     end
     if id==17 then
         if trans then
-            lg.setCanvas()
+            lg.setCanvas(tgt)
             draw_player(ix,iy)
         end
         if not trans then
             fg(0.1*255,0.1*255,0.1*255)
             rect('fill',0,0,16,16)
             draw_player(0,0)
-            lg.setCanvas()
+            lg.setCanvas(tgt)
             lg.draw(temp_canvas,ix,iy)
         end
     end
-    lg.setCanvas()
+    lg.setCanvas(tgt)
 end
 
 function draw_sprites()
@@ -196,6 +198,7 @@ function draw_sprites()
                 if color>4 then color=5 end
                 s_quad=_G['sw_'..tostring(color)..status]
             end
+            if s.id==22 then s_quad=mp_quad end
             if s.id~=17 then love.graphics.draw(sprsheet,s_quad,s.x,s.y,s.flip)
             else 
                 if not s.dead then
@@ -266,6 +269,7 @@ end
 
 function draw_bg_tiles()
     for k,bgtile in pairs(bg_tiles) do
+        if bgtile.id>=1 and bgtile.id<=12 and (bgtile.id-1)%3==1 then
         bgtile.color(0)
         rect('fill',bgtile.x,bgtile.y,16,16)
         for rx=0,16-1,4 do for ry=0,16-1,4 do
@@ -274,6 +278,10 @@ function draw_bg_tiles()
         rect('fill',bgtile.x+rx,bgtile.y+ry,4,4)
         end end
         end 
+        end
+        if bgtile.id==14 then
+        love.graphics.draw(sprsheet,gg_quad,bgtile.x,bgtile.y)
+        end
     end
 end
 
