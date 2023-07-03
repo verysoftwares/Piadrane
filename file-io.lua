@@ -43,6 +43,8 @@ function save_level(filename)
     --out=out..string.format('plr.x=%d; plr.y=%d',plr.x,plr.y)
 
     love.filesystem.write(filename,out)
+
+    cache_level(filename)
 end
 
 function load_level(filename,ingame)
