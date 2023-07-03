@@ -1,4 +1,4 @@
-DEBUG=true
+DEBUG=false
 
 require 'alias'
 require 'utility'
@@ -12,19 +12,19 @@ require 'draw'
 require 'corouts'
 require 'idea'
 require 'map'
-require 'jetpack'
 require 'drill'
+require 'jetpack'
 require 'music'
 require 'color'
 
 function love.keypressed(key)
     if key == "escape" then
-        if love.update==mainupdate then
-            love.event.quit()
-        elseif love.update~=mainupdate then
+        if love.update~=mainupdate then
             love.update=mainupdate
             love.draw=maindraw
             playmusic(cur_level)
+        elseif love.update==mainupdate then
+            love.event.quit()
         end
     end
     if key=='f1' and #idea_order>0 and not switch[5] then
