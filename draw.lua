@@ -12,6 +12,10 @@ function maindraw()
             rect('fill',rx,ry,16,16)
         end
     end end]]
+    --[[for i=0,4 do
+        fg((0.75-math.abs(2-i)*0.15)*255,0.3*255,0.2*255)
+        rect('fill',0,200/2-8/2-2*16+i*16,320,16)
+    end]]
 
     --palette_test()
     
@@ -475,7 +479,14 @@ function spec_draw()
         purple(3)
         msg='Time taken: '..string.format('%.2d:%.2d',math.floor((end_t-start_t)/60/60),math.floor((end_t-start_t)/60)%60)
         love.graphics.print(msg,320/2-8-fn:getWidth(msg)/2+1,32+24+42)
-        msg='Gems collected: '..string.format('%d',total_gems)
+        -- possible gems:
+        -- 2 in title screen
+        -- 3 in LEVEL0.LVL
+        -- 2 in LEVEL1.LVL
+        -- 2 in LEVEL2.LVL
+        -- 2 in LEVEL3.LVL
+        -- 1 in LEVEL5.LVL
+        msg='Gems collected: '..string.format('%d/%d',total_gems,2+3+2+2+2+1)
         love.graphics.print(msg,320/2-8-fn:getWidth(msg)/2+1,32+24+42+8)
         msg='This was version 2A'
         love.graphics.print(msg,320/2-8-fn:getWidth(msg)/2+1,32+24+42+24+8)
