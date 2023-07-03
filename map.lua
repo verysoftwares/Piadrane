@@ -60,6 +60,10 @@ function mapdraw()
         lg.print(leveltitles[id],0+3*20/2+4/2-fn:getWidth(leveltitles[id])/2,2)
         end
         lg.setCanvas(lvl.canvas)
+        if id==cur_level then
+        fg((0.8-(t*0.6)%12*0.02)*255,(0.2+(t*0.6)%12*0.04)*255,(0.4)*255)
+        rect('line',0,0,3*20+4,3*12+4+16*2+10)
+        end
         draw_id(14,0+3*20/2-(fn:getWidth('0/0')+16+4)/2,0+3*12+4-2-1-1+1+10,true,lvl.canvas)
         lg.setCanvas()
         lg.draw(lvl.canvas,lx,ly)
