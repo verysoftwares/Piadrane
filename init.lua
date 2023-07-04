@@ -84,6 +84,7 @@ fuel_consume=0.00125
 --drill=true
 drill_spd=0.04
 --map=true
+if DEBUG then drill=true; fuel=1 end
 
 switch={}
 for i=1,4 do switch[i]=true end

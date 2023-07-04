@@ -23,7 +23,7 @@ function playmusic(filename)
         vgm('lvlearly')
         play_len=4.28*4*2
     end
-    if filename=='LEVEL5.LVL' or filename=='LEVEL3.LVL' then
+    if filename=='LEVEL5.LVL' or filename=='LEVEL3.LVL' or filename=='LEVEL6.LVL' then
         vgm('lvlmid')
         play_len=4.28*5*2
     end
