@@ -70,7 +70,7 @@ function sprite_coll(plr,enter,down,up)
         if s.id==14 and switch[1] and AABB(s.x+3,s.y+3,16-6,16-6,plr.x,plr.y,plr.w,plr.h) then
             new_idea('gem')
             gems=gems+1
-            if not end_t then--cur_level~='LEVEL4.LVL' then
+            if not end_t and not s.placed then--cur_level~='LEVEL4.LVL' then
             total_gems=total_gems+1
             end
             table.remove(sprites,i)
@@ -138,7 +138,7 @@ function sprite_coll(plr,enter,down,up)
             end
             return
         end
-        if s.id==23 and switch[1] and AABB(plr.x,plr.y,plr.w,plr.h,s.x,s.y+4,16,8) then
+        if s.id==23 and switch[1] and ((s.mode==nil and AABB(plr.x,plr.y,plr.w,plr.h,s.x,s.y+4,16,8)) or (s.mode=='hit' and s.align=='left' and AABB(plr.x,plr.y,plr.w,plr.h,s.x,s.y+4,11,8)) or (s.mode=='hit' and s.align=='right' and AABB(plr.x,plr.y,plr.w,plr.h,s.x+5,s.y+4,11,8))) then
             die(plr)
         end
         if s.id==20 and switch[2] then

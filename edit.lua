@@ -76,6 +76,7 @@ function edit()
                 if sel~=21 and sel~=23 then table.insert(sprites,{x=mox+offx,y=moy+offy,id=sel,visible=true})
                 elseif sel==23 then table.insert(sprites,{x=mox+offx,y=moy+offy,id=sel,visible=true,dx=-2}) 
                 elseif sel==21 then table.insert(sprites,{x=mox+offx,y=moy+offy,id=sel,visible=true,color=switch_col}) end
+                if sel==14 then sprites[#sprites].placed=true end
                 if sel==17 then
                     sprites[#sprites].w=12
                     sprites[#sprites].h=12
