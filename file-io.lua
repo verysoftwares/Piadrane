@@ -86,8 +86,8 @@ function load_level(filename,ingame)
                 end
             end
         end
-        end
         for i,sp in ipairs(sprites) do if sp.id==23 and not sp.dx then sp.dx=-2 end end
+        end
         test_co=nil
         wf_coroutine=nil
         loaded=false

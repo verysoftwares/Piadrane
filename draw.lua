@@ -122,7 +122,7 @@ function draw_id(id,ix,iy,trans,tgt)
         if id==18 then s_quad=ex_quad end
         if id==19 then s_quad=fu_quad end
         if id==22 then s_quad=mp_quad end
-        if id==23 then s_quad=co_quad end
+        if id==23 then s_quad=co_quad; if t%24<12 then s_quad=co_quad3 end end
         if id==20 then 
             s_quad=_G['fi_quad'..tostring(math.floor((t*0.2)%2)+1)] 
         end
@@ -207,6 +207,7 @@ function draw_sprites()
             if s.id==23 then 
                 if not s.mode then
                 s_quad=co_quad 
+                if t%24<12 then s_quad=co_quad3 end
                 love.graphics.draw(sprsheet,s_quad,s.x,s.y)
                 elseif s.mode=='hit' then
                     if s.align=='left' then
