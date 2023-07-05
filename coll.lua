@@ -138,6 +138,9 @@ function sprite_coll(plr,enter,down,up)
             end
             return
         end
+        if s.id==23 and switch[1] and AABB(plr.x,plr.y,plr.w,plr.h,s.x,s.y+4,16,8) then
+            die(plr)
+        end
         if s.id==20 and switch[2] then
             if AABB(plr.x,plr.y,plr.w,plr.h,s.x,s.y+10,16,6) then
                 die(plr)

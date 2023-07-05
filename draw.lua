@@ -106,7 +106,7 @@ function draw_id(id,ix,iy,trans,tgt)
         lg.setCanvas(tgt)
         lg.draw(temp_canvas,ix,iy)
     end
-    if (id>=14 and id<=16) or (id>=18 and id<=22) then
+    if (id>=14 and id<=16) or (id>=18 and id<=23) then
         if not trans then 
             --fg(0.95*255,0.95*255,0.95*255)
             fg(0.1*255,0.1*255,0.1*255)
@@ -122,6 +122,7 @@ function draw_id(id,ix,iy,trans,tgt)
         if id==18 then s_quad=ex_quad end
         if id==19 then s_quad=fu_quad end
         if id==22 then s_quad=mp_quad end
+        if id==23 then s_quad=co_quad end
         if id==20 then 
             s_quad=_G['fi_quad'..tostring(math.floor((t*0.2)%2)+1)] 
         end
@@ -203,8 +204,21 @@ function draw_sprites()
                 s_quad=_G['sw_'..tostring(color)..status]
             end
             if s.id==22 then s_quad=mp_quad end
-            if s.id~=17 then love.graphics.draw(sprsheet,s_quad,s.x,s.y,s.flip)
-            else 
+            if s.id==23 then 
+                if not s.mode then
+                s_quad=co_quad 
+                love.graphics.draw(sprsheet,s_quad,s.x,s.y)
+                elseif s.mode=='hit' then
+                    if s.align=='left' then
+                        love.graphics.draw(sprsheet,co_quad2,s.x,s.y)
+                    end
+                    if s.align=='right' then
+                        love.graphics.draw(sprsheet,co_quad2,s.x+5,s.y)
+                    end
+                end
+            end
+            if s.id~=17 and s.id~=23 then love.graphics.draw(sprsheet,s_quad,s.x,s.y,s.flip)
+            elseif s.id==17 then 
                 if not s.dead then
                     local flip=false
                     if s.dx<0 then flip=true end
@@ -486,7 +500,8 @@ function spec_draw()
         -- 2 in LEVEL2.LVL
         -- 2 in LEVEL3.LVL
         -- 1 in LEVEL5.LVL
-        msg='Gems collected: '..string.format('%d/%d',total_gems,2+3+2+2+2+1)
+        -- 1 in LEVEL7.LVL
+        msg='Gems collected: '..string.format('%d/%d',total_gems,2+3+2+2+2+1+1)
         love.graphics.print(msg,320/2-8-fn:getWidth(msg)/2+1,32+24+42+8)
         msg='This was version 2A'
         love.graphics.print(msg,320/2-8-fn:getWidth(msg)/2+1,32+24+42+24+8)

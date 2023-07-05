@@ -23,8 +23,13 @@ function co_water(x,y)
     coroutine.yield()
     if not tiles[posstr(x/16,y/16+1)] and y+16<200-16 then
         co_water(x,y+16,color,id)
+        for i,sp in ipairs(sprites) do
+            if sp.id==20 and sp.x==x and sp.y==y+16 then
+                fizz(sp)
+                break
+            end
+        end
     end
-
     end)
 end
 
@@ -234,4 +239,27 @@ function water_refresh()
     love.graphics.draw(wf_canvas2,0,0)
     love.graphics.setCanvas()
     end]]
+end
+
+function fizz(sp)
+    fizzle_co=coroutine.create(function()
+        local fizzles={sp}
+        for i,f in ipairs(fizzles) do
+            for j,sp in ipairs(sprites) do
+                if sp==f then table.remove(sprites,j); break end
+            end
+            for j,sp in ipairs(sprites) do
+                if sp.id==20 and sp.x==f.x+16 and (sp.y==f.y or sp.y==f.y+16) then table.insert(fizzles,sp) end
+                if sp.id==20 and sp.x==f.x-16 and (sp.y==f.y or sp.y==f.y+16) then table.insert(fizzles,sp) end
+            end
+            coroutine.yield()
+        end
+    end)
+end
+
+function fizzle_refresh()
+    if not fizzle_co then return end
+    if t%6==0 then
+        coroutine.resume(fizzle_co)
+    end
 end

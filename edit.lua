@@ -73,8 +73,9 @@ function edit()
                 if not editmode then save_state(); gems=gems-1; new_idea('undo') end
                 local offx,offy=0,0
                 if sel==17 then offx,offy=2,4 end
-                if sel~=21 then table.insert(sprites,{x=mox+offx,y=moy+offy,id=sel,visible=true})
-                else table.insert(sprites,{x=mox+offx,y=moy+offy,id=sel,visible=true,color=switch_col}) end
+                if sel~=21 and sel~=23 then table.insert(sprites,{x=mox+offx,y=moy+offy,id=sel,visible=true})
+                elseif sel==23 then table.insert(sprites,{x=mox+offx,y=moy+offy,id=sel,visible=true,dx=-2}) 
+                elseif sel==21 then table.insert(sprites,{x=mox+offx,y=moy+offy,id=sel,visible=true,color=switch_col}) end
                 if sel==17 then
                     sprites[#sprites].w=12
                     sprites[#sprites].h=12
@@ -184,7 +185,7 @@ end
 function unique_objs()
     local out={}
     if editmode then
-        for i=0,22 do out[i]=true end
+        for i=0,23 do out[i]=true end
         return out
     end
 

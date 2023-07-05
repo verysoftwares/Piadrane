@@ -137,9 +137,10 @@ levelpos={
     ['LEVEL1.LVL']={1,-1,connects={{0,-1,'LEVEL3.LVL'},{1,0,'LEVEL2.LVL'}}},
     ['LEVEL2.LVL']={2,-1,connects={}},
     ['LEVEL3.LVL']={1,-2,connects={{1,0,'LEVEL6.LVL'}}},
-    ['LEVEL4.LVL']={2,-3,connects={}},
+    ['LEVEL4.LVL']={3,-3,connects={}},
     ['LEVEL5.LVL']={0,-2,connects={}},
-    ['LEVEL6.LVL']={2,-2,connects={{0,-1,'LEVEL4.LVL'}}},
+    ['LEVEL6.LVL']={2,-2,connects={{0,-1,'LEVEL7.LVL'}}},
+    ['LEVEL7.LVL']={2,-3,connects={{1,0,'LEVEL4.LVL'}}},
     ['OPTIONS.LVL']={1,0,connects={}},
     ['CREDITS.LVL']={0,1,connects={}},
 }
@@ -155,4 +156,5 @@ leveltitles={
     ['LEVEL4.LVL']='Victory',
     ['LEVEL5.LVL']='Flip Flop',
     ['LEVEL6.LVL']='Ziggurat',
+    ['LEVEL7.LVL']='Narrow Patrol'
 }

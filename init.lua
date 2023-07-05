@@ -48,6 +48,9 @@ function love.load()
     end
     gg_quad=love.graphics.newQuad(5*16,5*16,16,16)
 
+    co_quad=love.graphics.newQuad(0*16,5*16,16,16)
+    co_quad2=love.graphics.newQuad(1*16,5*16,16,16)
+
     ar_quad1=love.graphics.newQuad(6*16,5*16,16,16)
     ar_quad2=love.graphics.newQuad(7*16,5*16,16,16)
 

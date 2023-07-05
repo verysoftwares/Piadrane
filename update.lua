@@ -29,6 +29,29 @@ function mainupdate()
         local up=tapped('up')
         jetpack_consume=false
         drill_consume=false
+        for i,sp in ipairs(sprites) do
+            if sp.id==23 then 
+                if sp.mode==nil then
+                sp.x=sp.x+sp.dx 
+                elseif sp.mode=='hit' then
+                    if t-sp.hit_t>20 then
+                        sp.dx=-sp.dx
+                        sp.mode=nil
+                    end
+                end
+                if sp.x<0 then sp.mode='hit'; sp.align='left'; sp.hit_t=t+1; sp.x=0 end
+                if sp.x>=320-16 then sp.mode='hit'; sp.align='right'; sp.hit_t=t+1; sp.x=320-16-1 end
+                for k,tile in pairs(tiles) do
+                    if AABB(tile.x,tile.y,16,16,sp.x,sp.y+4,16,8) then
+                        sp.mode='hit'
+                        if tile.x<sp.x then sp.x=tile.x+16; sp.align='left'
+                        else sp.x=tile.x-16; sp.align='right' end
+                        sp.hit_t=t+1
+                        break
+                    end
+                end
+            end
+        end
         for i,sp in ipairs(sprites) do if sp.id==17 and not sp.dead then
             local plr=sp
 
@@ -81,6 +104,7 @@ function mainupdate()
 
     tile_refresh()
     water_refresh()
+    fizzle_refresh()
 
     t=t+1
 end
