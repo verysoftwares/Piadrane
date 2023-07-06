@@ -156,5 +156,5 @@ leveltitles={
     ['LEVEL4.LVL']='Victory',
     ['LEVEL5.LVL']='Flip Flop',
     ['LEVEL6.LVL']='Ziggurat',
-    ['LEVEL7.LVL']='Narrow Patrol'
+    ['LEVEL7.LVL']='Slim Patrol'
 }
