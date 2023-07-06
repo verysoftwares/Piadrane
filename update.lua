@@ -50,6 +50,14 @@ function mainupdate()
                         break
                     end
                 end
+                for i2,sp2 in ipairs(sprites) do
+                    if sp2.id==21 and sp2~=sp.immune and AABB(sp2.x,sp2.y,16,16,sp.x,sp.y,16,16) then
+                        switch[sp2.color]=not switch[sp2.color]
+                        sp.immune=sp2
+                    elseif sp2.id==21 and sp2==sp.immune and not AABB(sp2.x,sp2.y,16,16,sp.x,sp.y,16,16) then
+                        sp.immune=nil
+                    end
+                end
             end
         end
         for i,sp in ipairs(sprites) do if sp.id==17 and not sp.dead then

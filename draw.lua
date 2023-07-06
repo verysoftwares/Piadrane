@@ -532,7 +532,8 @@ function spec_draw()
         -- 2 in LEVEL3.LVL
         -- 1 in LEVEL5.LVL
         -- 1 in LEVEL7.LVL
-        msg='Gems collected: '..string.format('%d/%d',total_gems,2+3+2+2+2+1+1)
+        -- 2 in LEVEL8.LVL
+        msg='Gems collected: '..string.format('%d/%d',total_gems,2+3+2+2+2+1+1+2)
         love.graphics.print(msg,320/2-8-fn:getWidth(msg)/2+1,32+24+42+8)
         msg='This was version 2A'
         love.graphics.print(msg,320/2-8-fn:getWidth(msg)/2+1,32+24+42+24+8)

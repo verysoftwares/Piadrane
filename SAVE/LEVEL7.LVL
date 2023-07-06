@@ -5,5 +5,5 @@ water_tiles={
 {240,48},{48,48}
 }
 sprites={
-{x=160,y=32,id=14},{x=256,y=32,id=18,tgt='LEVEL1.LVL',flip=true},{x=240,y=0,id=23},{x=144,y=176,id=18,tgt='LEVEL4.LVL',flip=nil},{x=96,y=160,id=20},{x=112,y=160,id=20},{x=128,y=144,id=20},{x=144,y=144,id=20},{x=160,y=144,id=20},{x=176,y=160,id=20},{x=192,y=160,id=20},{x=64,y=32,id=21,color=2},{x=18,y=20,id=17,w=12,h=12,dx=0,dy=0,dummy=nil}
+{x=160,y=32,id=14},{x=256,y=32,id=18,tgt='LEVEL8.LVL'},{x=240,y=0,id=23},{x=144,y=176,id=18,tgt='LEVEL4.LVL',flip=nil},{x=96,y=160,id=20},{x=112,y=160,id=20},{x=128,y=144,id=20},{x=144,y=144,id=20},{x=160,y=144,id=20},{x=176,y=160,id=20},{x=192,y=160,id=20},{x=64,y=32,id=21,color=2},{x=18,y=20,id=17,w=12,h=12,dx=0,dy=0,dummy=nil}
 }
