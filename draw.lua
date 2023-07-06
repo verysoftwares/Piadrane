@@ -334,7 +334,37 @@ function tile_render(tile)
     
     local color=math.floor((tile.id-1)/3)+1
     if (tile.id-1)%3>0 or switch[color] then
-    lg.draw(tile.canvas,tile.x,tile.y)    
+        local colorf
+        if color==1 then colorf=green end
+        if color==2 then colorf=purple end
+        if color==3 then colorf=blue end
+        if color==4 then colorf=yellow end
+        for i,s in ipairs(sprites) do
+            if s.id==17 and s.drill_tile and tile.x==s.drill_tile[1] and tile.y==s.drill_tile[2] then
+                if not tile.canvas2 then
+                    tile.canvas2=lg.newCanvas(16,16)
+                    lg.setCanvas(tile.canvas2)
+                    lg.draw(tile.canvas,0,0)
+                end
+                lg.setCanvas(tile.canvas2)
+                if s.tgt_weaken then
+                for i=0,1,1/16 do
+                    if i>(1-s.tgt_weaken) then break end
+                    local prog=i*16
+                    local rx=prog%4
+                    local ry=math.floor(prog/4)
+                    if (rx+ry)%2==0 then 
+                        colorf(-1)
+                    else colorf(0) end
+                    rect('fill',rx*4,ry*4,4,4)
+                end
+                end
+                lg.setCanvas()
+                lg.draw(tile.canvas2,tile.x,tile.y)
+                return
+            end
+        end
+        lg.draw(tile.canvas,tile.x,tile.y)    
     else
     lg.draw(sprsheet,_G['tile_'..tostring(color)..'_off'],tile.x,tile.y)
     end

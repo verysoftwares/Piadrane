@@ -15,7 +15,7 @@ function use_drill(plr)
         if not plr.drill_tile then 
             if plr.dx<0 then plr.drill_tile={plr.drill_hold[1]-plr.drill_hold[1]%16-16,plr.drill_hold[2]-plr.drill_hold[2]%16} end
             if plr.dx>=0 then plr.drill_tile={plr.drill_hold[1]-plr.drill_hold[1]%16+16,plr.drill_hold[2]-plr.drill_hold[2]%16} end
-            if jetpack and (press('lalt') or press('ralt')) then plr.drill_tile={plr.drill_hold[1]-plr.drill_hold[1]%16,plr.drill_hold[2]-plr.drill_hold[2]%16-16} end
+            if jetpack and jetpack_active() then plr.drill_tile={plr.drill_hold[1]-plr.drill_hold[1]%16,plr.drill_hold[2]-plr.drill_hold[2]%16-16} end
         end
         if plr.drill_tile then
         if not plr.tgt_tile or not (plr.tgt_tile.x==plr.drill_tile[1] and plr.tgt_tile.y==plr.drill_tile[2]) then plr.tgt_tile=tiles[posstr(plr.drill_tile[1]/16,plr.drill_tile[2]/16)] end
