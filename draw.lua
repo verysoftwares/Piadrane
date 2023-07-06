@@ -341,11 +341,9 @@ function tile_render(tile)
         if color==4 then colorf=yellow end
         for i,s in ipairs(sprites) do
             if s.id==17 and s.drill_tile and tile.x==s.drill_tile[1] and tile.y==s.drill_tile[2] then
-                if not tile.canvas2 then
-                    tile.canvas2=lg.newCanvas(16,16)
-                    lg.setCanvas(tile.canvas2)
-                    lg.draw(tile.canvas,0,0)
-                end
+                tile.canvas2=lg.newCanvas(16,16)
+                lg.setCanvas(tile.canvas2)
+                lg.draw(tile.canvas,0,0)
                 lg.setCanvas(tile.canvas2)
                 if s.tgt_weaken then
                 for i=0,1,1/16 do
